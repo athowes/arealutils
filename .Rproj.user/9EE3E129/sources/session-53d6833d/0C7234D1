@@ -1,0 +1,26 @@
+{
+    "id": "0C7234D1",
+    "path": "~/Documents/phd/arealutils/src/Makevars.win",
+    "project_path": "src/Makevars.win",
+    "type": "makefile",
+    "hash": "3603362906",
+    "contents": "",
+    "dirty": false,
+    "created": 1676553518400.0,
+    "source_on_save": false,
+    "relative_order": 3,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "15,15",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1676553755,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1676553755976,
+    "read_only": false,
+    "read_only_alternatives": []
+}
