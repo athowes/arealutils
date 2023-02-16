@@ -3,6 +3,7 @@
 #define TMB_LIB_INIT R_init_arealutils_TMBExports
 #include <TMB.hpp>
 #include "GammaNLL.hpp"
+#include "iid.hpp"
 #include "NormalNLL.hpp"
 
 template<class Type>
@@ -10,6 +11,8 @@ Type objective_function<Type>::operator() () {
   DATA_STRING(model);
   if(model == "GammaNLL") {
     return GammaNLL(this);
+  } else if(model == "iid") {
+    return iid(this);
   } else if(model == "NormalNLL") {
     return NormalNLL(this);
   } else {

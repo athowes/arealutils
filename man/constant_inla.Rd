@@ -14,8 +14,7 @@ constant_inla(sf, verbose = FALSE, cores = parallel::detectCores())
 \item{cores}{Number of cores, passed to \code{R-INLA}, defaults to \code{parallel::detectCores()}.}
 }
 \description{
-Simply fits a constant (the mean). This is useful as a benchmark
-for other models.
+Simply fits a constant (the mean). This is useful as a benchmark for other models.
 }
 \examples{
 fit <- constant_inla(mw, cores = 2)

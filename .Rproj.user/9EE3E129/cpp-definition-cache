@@ -6,82 +6,8 @@
         "hidden": false
     },
     {
-        "file": "/Users/adamhowes/Documents/phd/arealutils/src/TMB/GammaNLL.hpp",
-        "file_last_write": 1676552775.0,
-        "definitions": [
-            {
-                "usr": "c:GammaNLL.hpp@100@macro@TMB_OBJECTIVE_PTR",
-                "kind": 9,
-                "parent_name": "",
-                "name": "TMB_OBJECTIVE_PTR",
-                "file": "/Users/adamhowes/Documents/phd/arealutils/src/TMB/GammaNLL.hpp",
-                "line": 7,
-                "column": 9,
-                "hidden": false
-            },
-            {
-                "usr": "c:GammaNLL.hpp@435@macro@TMB_OBJECTIVE_PTR",
-                "kind": 9,
-                "parent_name": "",
-                "name": "TMB_OBJECTIVE_PTR",
-                "file": "/Users/adamhowes/Documents/phd/arealutils/src/TMB/GammaNLL.hpp",
-                "line": 19,
-                "column": 9,
-                "hidden": false
-            },
-            {
-                "usr": "c:@FT@>1#TGammaNLL#*I#t0.0#",
-                "kind": 6,
-                "parent_name": "",
-                "name": "GammaNLL(int *)",
-                "file": "/Users/adamhowes/Documents/phd/arealutils/src/TMB/GammaNLL.hpp",
-                "line": 11,
-                "column": 6,
-                "hidden": false
-            }
-        ],
-        "hidden": false
-    },
-    {
-        "file": "/Users/adamhowes/Documents/phd/arealutils/src/TMB/NormalNLL.hpp",
-        "file_last_write": 1676552775.0,
-        "definitions": [
-            {
-                "usr": "c:NormalNLL.hpp@103@macro@TMB_OBJECTIVE_PTR",
-                "kind": 9,
-                "parent_name": "",
-                "name": "TMB_OBJECTIVE_PTR",
-                "file": "/Users/adamhowes/Documents/phd/arealutils/src/TMB/NormalNLL.hpp",
-                "line": 7,
-                "column": 9,
-                "hidden": false
-            },
-            {
-                "usr": "c:NormalNLL.hpp@473@macro@TMB_OBJECTIVE_PTR",
-                "kind": 9,
-                "parent_name": "",
-                "name": "TMB_OBJECTIVE_PTR",
-                "file": "/Users/adamhowes/Documents/phd/arealutils/src/TMB/NormalNLL.hpp",
-                "line": 19,
-                "column": 9,
-                "hidden": false
-            },
-            {
-                "usr": "c:@FT@>1#TNormalNLL#*I#t0.0#",
-                "kind": 6,
-                "parent_name": "",
-                "name": "NormalNLL(int *)",
-                "file": "/Users/adamhowes/Documents/phd/arealutils/src/TMB/NormalNLL.hpp",
-                "line": 11,
-                "column": 6,
-                "hidden": false
-            }
-        ],
-        "hidden": false
-    },
-    {
         "file": "/Users/adamhowes/Documents/phd/arealutils/src/TMB/arealutils_TMBExports.cpp",
-        "file_last_write": 1676552775.0,
+        "file_last_write": 1676564791.0,
         "definitions": [
             {
                 "usr": "c:arealutils_TMBExports.cpp@55@macro@TMB_LIB_INIT",
@@ -105,6 +31,80 @@
             }
         ],
         "hidden": true
+    },
+    {
+        "file": "/Users/adamhowes/Documents/phd/arealutils/src/TMB/constant.hpp",
+        "file_last_write": 1676564734.0,
+        "definitions": [
+            {
+                "usr": "c:constant.hpp@100@macro@TMB_OBJECTIVE_PTR",
+                "kind": 9,
+                "parent_name": "",
+                "name": "TMB_OBJECTIVE_PTR",
+                "file": "/Users/adamhowes/Documents/phd/arealutils/src/TMB/constant.hpp",
+                "line": 7,
+                "column": 9,
+                "hidden": false
+            },
+            {
+                "usr": "c:constant.hpp@966@macro@TMB_OBJECTIVE_PTR",
+                "kind": 9,
+                "parent_name": "",
+                "name": "TMB_OBJECTIVE_PTR",
+                "file": "/Users/adamhowes/Documents/phd/arealutils/src/TMB/constant.hpp",
+                "line": 42,
+                "column": 9,
+                "hidden": false
+            },
+            {
+                "usr": "c:@FT@>1#Tconstant#*I#t0.0#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "constant(int *)",
+                "file": "/Users/adamhowes/Documents/phd/arealutils/src/TMB/constant.hpp",
+                "line": 11,
+                "column": 6,
+                "hidden": false
+            }
+        ],
+        "hidden": false
+    },
+    {
+        "file": "/Users/adamhowes/Documents/phd/arealutils/src/TMB/iid.hpp",
+        "file_last_write": 1676558017.0,
+        "definitions": [
+            {
+                "usr": "c:iid.hpp@85@macro@TMB_OBJECTIVE_PTR",
+                "kind": 9,
+                "parent_name": "",
+                "name": "TMB_OBJECTIVE_PTR",
+                "file": "/Users/adamhowes/Documents/phd/arealutils/src/TMB/iid.hpp",
+                "line": 7,
+                "column": 9,
+                "hidden": false
+            },
+            {
+                "usr": "c:iid.hpp@1213@macro@TMB_OBJECTIVE_PTR",
+                "kind": 9,
+                "parent_name": "",
+                "name": "TMB_OBJECTIVE_PTR",
+                "file": "/Users/adamhowes/Documents/phd/arealutils/src/TMB/iid.hpp",
+                "line": 46,
+                "column": 9,
+                "hidden": false
+            },
+            {
+                "usr": "c:@FT@>1#Tiid#*I#t0.0#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "iid(int *)",
+                "file": "/Users/adamhowes/Documents/phd/arealutils/src/TMB/iid.hpp",
+                "line": 11,
+                "column": 6,
+                "hidden": false
+            }
+        ],
+        "hidden": false
     },
     {
         "file": "/Users/adamhowes/Documents/phd/arealutils/src/init_dummy_file.cpp",

@@ -24,8 +24,7 @@ constant_stan(
 \item{cores}{Number of cores, passed to \code{rstan}, defaults to \code{parallel::detectCores()}}
 }
 \description{
-Simply fits a constant (the mean). This is useful as a benchmark
-for other models.
+Simply fits a constant (the mean). This is useful as a benchmark for other models.
 }
 \examples{
 constant_stan(mw, cores = 2)
