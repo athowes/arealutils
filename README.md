@@ -24,3 +24,19 @@ devtools::install_github("athowes/arealutils")
 
 This package uses compiled models from both `TMB` and `rstan`.
 To do this we make use of the very helpful `TMBtools` and `rstantools` to set-up the package.
+
+### Guidelines for adding a new `TMB` model
+
+See [here](https://rdrr.io/github/mlysy/TMBtools/f/vignettes/TMBtools.Rmd).
+
+1. Create `model.hpp` in `arealutils/src/TMB`
+2. Run `TMBtools::export_models()`
+3. Run `devtools::install()` to install the package locally
+
+### Guidelines for adding a new `rstan` model
+
+See [here](https://mc-stan.org/rstantools/articles/minimal-rstan-package.html).
+
+1. Create `model.stan` in `arealutils/inst/stan`
+2. Run `pkgbuild::compile_dll()` to perform a fake R CMD install
+4. Run `devtools::install()` to install the package locally
