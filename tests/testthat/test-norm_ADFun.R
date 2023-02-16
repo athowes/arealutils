@@ -1,7 +1,6 @@
 
 context("norm_ADFun")
 
-
 test_that("norm_ADFun calculates correct negloglik, gradient, and hessian", {
   nll_fun <- function(theta, y) {
     -sum(dnorm(x = x, mean = theta[1], sd = theta[2], log = TRUE))
