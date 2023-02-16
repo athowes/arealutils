@@ -4,12 +4,12 @@
 \name{arealutils-package}
 \alias{arealutils}
 \alias{arealutils-package}
-\title{arealutils: What the Package Does (One Line, Title Case)}
+\title{arealutils: Areal Utility Functions}
 \description{
-What the package does (one paragraph).
+Functions used by areal-comparison analysis.
 }
 \author{
-\strong{Maintainer}: Your Name \email{valid@email.com}
+\strong{Maintainer}: Adam Howes \email{ath19@ic.ac.uk}
 
 }
 \keyword{internal}

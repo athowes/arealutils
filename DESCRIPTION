@@ -1,9 +1,12 @@
 Package: arealutils
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Areal Utility Functions
+Version: 0.0.1
 Authors@R: 
-    person("Your", "Name", , "valid@email.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+    person(given = "Adam",
+           family = "Howes",
+           role = c("aut", "cre"),
+           email = "ath19@ic.ac.uk")
+Description: Functions used by areal-comparison analysis.
 License: GPL (>= 2)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
