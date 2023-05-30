@@ -7,6 +7,11 @@ mw <- sf::st_as_sf(mw)
 compile("constant.cpp")
 dyn.load(dynlib("constant"))
 
+#' Develop package function
+
+#' Test works using packaged function
+constant_tmb(mw, its = 1000)
+
 #' IID
 compile("iid.cpp")
 dyn.load(dynlib("iid"))

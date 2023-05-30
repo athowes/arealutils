@@ -14,7 +14,7 @@ status](https://github.com/athowes/arealutils/actions/workflows/R-CMD-check.yaml
 
 | Model                                   | `TMB`   | `aghq`  | `tmbstan` | `R-INLA` | `rstan` |
 |:----------------------------------------|:--------|:--------|:----------|:---------|:--------|
-| Constant                                | - | - | -   | &check;  | - | 
+| Constant                                | &check; | - | -   | &check;  | - | 
 | Independent and identically distributed | &check; | - | -   | &check;  | - | 
 | Besag                                   | &check; | - | -   | &check;  | - | 
 | Besag-York-Mollié  2                    | - | - | -   | &check;  | - | 

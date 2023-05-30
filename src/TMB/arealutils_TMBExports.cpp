@@ -3,6 +3,7 @@
 #define TMB_LIB_INIT R_init_arealutils_TMBExports
 #include <TMB.hpp>
 #include "besag.hpp"
+#include "constant.hpp"
 #include "iid.hpp"
 
 template<class Type>
@@ -10,6 +11,8 @@ Type objective_function<Type>::operator() () {
   DATA_STRING(model);
   if(model == "besag") {
     return besag(this);
+  } else if(model == "constant") {
+    return constant(this);
   } else if(model == "iid") {
     return iid(this);
   } else {
