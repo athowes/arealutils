@@ -40,8 +40,7 @@ constant_tmb <- function(sf, its = 1000){
 #'
 #' Random effects are independent and identically distributed.
 #'
-#' @param sf A simple features object with some geometry.
-#' @param its Number of iterations in outer loop optimisation, passed to `nlminb`.
+#' @inheritParams constant_tmb
 #' @examples
 #' iid_tmb(mw, its = 100)
 #' @export
@@ -82,9 +81,8 @@ iid_tmb <- function(sf, its = 1000){
 #' Random effects have an improper conditional autoregressive (ICAR)
 #' distribution.
 #'
-#' @param sf A simple features object with some geometry.
-#' @param its Number of iterations in outer loop optimisation, passed to
-#' \code{nlminb}.
+#' @inheritParams constant_tmb
+#' 
 #' @examples
 #' besag_tmb(mw, its = 100)
 #' @export
