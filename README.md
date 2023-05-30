@@ -10,6 +10,19 @@ status](https://github.com/athowes/arealutils/actions/workflows/R-CMD-check.yaml
 
 <!-- badges: end -->
 
+## Models
+
+| Model    | `TMB` | `aghq` | `tmbstan` | `R-INLA` | `rstan` |
+|:---------|:------|:-------|:----------|:---------|:--------|
+| Constant | &#9744; | &#9744; | &#9744; | &#9744; | &#9744; | 
+| Independent and identically distributed | &#9744; | &#9744; | &#9744; | &#9744; | &#9744; | 
+| Besag | &#9744; | &#9744; | &#9744; | &#9744; | &#9744; | 
+| Besag-York-Mollié  2 | &#9744; | &#9744; | &#9744; | &#9744; | &#9744; | 
+| Centroid kernel (fixed lengthscale) | &#9744; | &#9744; | &#9744; | &#9744; | &#9744; | 
+| Integrated kernel (fixed lengthscale) | &#9744; | &#9744; | &#9744; | &#9744; | &#9744; | 
+| Centroid kernel | &#9744; | &#9744; | &#9744; | &#9744; | &#9744; | 
+| Integrated kernel | &#9744; | &#9744; | &#9744; | &#9744; | &#9744; | 
+
 ## Installation
 
 This R package is being developed in support of the analysis in [`areal-comparison`](https://github.com/athowes/areal-comparison).
@@ -40,3 +53,5 @@ See [here](https://mc-stan.org/rstantools/articles/minimal-rstan-package.html).
 1. Create `model.stan` in `arealutils/inst/stan`
 2. Run `pkgbuild::compile_dll()` to perform a fake R CMD install
 4. Run `devtools::install()` to install the package locally
+
+

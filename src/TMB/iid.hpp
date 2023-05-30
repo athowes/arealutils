@@ -23,19 +23,15 @@ Type iid(objective_function<Type>* obj) {
   vector<Type> eta(beta_0 + sigma_phi * phi);
   vector<Type> rho(invlogit(eta));
   
-  // Initialise negative log-likelihood
+  // Model
   Type nll;
   nll = Type(0.0);
   
-  // Likelihood from priors
   nll -= dnorm(sigma_phi, Type(0), Type(100), true); // Approximating the uniform prior
   nll -= dnorm(beta_0, Type(-2), Type(5), true); // NB: true puts the likelihood on the log-scale
+  nll -= dnorm(phi, Type(0), sigma_phi, true).sum();
   
-  for(int i = 0; i < n; i++)  
-  {
-    nll -= dnorm(phi[i], Type(0), sigma_phi, true);
-    nll -= dbinom_robust(y[i], m[i], eta[i], true);
-  }
+  nll -= dbinom_robust(y, m, eta, true).sum();
   
   ADREPORT(rho); // Would like to see posterior prevalence estimates
   
