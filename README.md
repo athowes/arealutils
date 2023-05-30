@@ -14,14 +14,14 @@ status](https://github.com/athowes/arealutils/actions/workflows/R-CMD-check.yaml
 
 | Model                                   | `TMB`   | `aghq`  | `tmbstan` | `R-INLA` | `rstan` |
 |:----------------------------------------|:--------|:--------|:----------|:---------|:--------|
-| Constant                                | &#9744; | &#9744; | &#9744;   | &#9745;  | &#9744; | 
-| Independent and identically distributed | &#9745; | &#9744; | &#9744;   | &#9745;  | &#9744; | 
-| Besag                                   | &#9745; | &#9744; | &#9744;   | &#9745;  | &#9744; | 
-| Besag-York-Mollié  2                    | &#9744; | &#9744; | &#9744;   | &#9745;  | &#9744; | 
-| Centroid kernel (fixed lengthscale)     | &#9744; | &#9744; | &#9744;   | &#9745;  | &#9744; | 
-| Integrated kernel (fixed lengthscale)   | &#9744; | &#9744; | &#9744;   | &#9745;  | &#9744; | 
-| Centroid kernel                         | &#9744; | &#9744; | &#9744;   | &#9744;  | &#9744; | 
-| Integrated kernel                       | &#9744; | &#9744; | &#9744;   | &#9744;  | &#9744; | 
+| Constant                                | - | - | -   | &check;  | - | 
+| Independent and identically distributed | &check; | - | -   | &check;  | - | 
+| Besag                                   | &check; | - | -   | &check;  | - | 
+| Besag-York-Mollié  2                    | - | - | -   | &check;  | - | 
+| Centroid kernel (fixed lengthscale)     | - | - | -   | &check;  | - | 
+| Integrated kernel (fixed lengthscale)   | - | - | -   | &check;  | - | 
+| Centroid kernel                         | - | - | -   | -  | - | 
+| Integrated kernel                       | - | - | -   | -  | - | 
 
 ## Installation
 
