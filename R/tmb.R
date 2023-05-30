@@ -79,10 +79,11 @@ iid_tmb <- function(sf, its = 1000){
 #' Fit Besag Small Area Estimation model using `TMB`.
 #'
 #' Random effects have an improper conditional autoregressive (ICAR)
-#' distribution.
+#' distribution with (generalised) precision matrix produced using
+#' the [`nb_to_precision`] function with input `nb`,
+#' the neighbourhood structure of `sf`.
 #'
 #' @inheritParams constant_tmb
-#' 
 #' @examples
 #' besag_tmb(mw, its = 100)
 #' @export

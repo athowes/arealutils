@@ -17,5 +17,5 @@ iid_aghq(sf, k = 3, its = 1000)
 Random effects are independent and identically distributed.
 }
 \examples{
-iid_tmb(mw, its = 100)
+iid_aghq(mw, its = 100)
 }

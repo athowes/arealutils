@@ -4,10 +4,12 @@
 \alias{constant_aghq}
 \title{Fit constant Small Area Estimation model using \code{aghq}.}
 \usage{
-constant_aghq(sf, its = 1000)
+constant_aghq(sf, k = 3, its = 1000)
 }
 \arguments{
 \item{sf}{A simple features object with some geometry.}
+
+\item{k}{Number of quadrature points per hyperparameter dimension.}
 
 \item{its}{Number of iterations in outer loop optimisation, passed to \code{nlminb}.}
 }
@@ -15,5 +17,5 @@ constant_aghq(sf, its = 1000)
 Simply fits a constant (the mean). This is useful as a benchmark for other models.
 }
 \examples{
-constant_tmb(mw, its = 100)
+constant_aghq(mw, its = 100)
 }
