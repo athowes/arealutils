@@ -60,7 +60,7 @@ iid_tmb <- function(sf, its = 1000){
   obj <- TMB::MakeADFun(
     data = c(model = "iid", dat),
     parameters = param,
-    random = "phi",
+    random = c("beta_0", "phi"),
     DLL = "arealutils_TMBExports"
   )
   
@@ -105,7 +105,48 @@ besag_tmb <- function(sf, its = 1000){
   obj <- TMB::MakeADFun(
     data = c(model = "besag", dat),
     parameters = param,
-    random = "phi",
+    random = c("beta_0", "phi"),
+    DLL = "arealutils_TMBExports"
+  )
+  
+  opt <- nlminb(start = obj$par,
+                objective = obj$fn,
+                gradient = obj$gr,
+                control = list(iter.max = its, trace = 0))
+  
+  sd_out <- sdreport(obj,
+                     par.fixed = opt$par,
+                     getJointPrecision = TRUE)
+  
+  return(sd_out)
+}
+
+#' Fit BYM2 Small Area Estimation model using `TMB`.
+#'
+#' @inheritParams constant_tmb
+#' @examples
+#' bym2_tmb(mw, its = 100)
+#' @export
+bym2_tmb <- function(sf, its = 1000){
+  nb <- sf_to_nb(sf)
+  Q <- nb_to_precision(nb)
+  Q <- as(Q, "dgTMatrix")
+  
+  dat <- list(n = nrow(sf),
+              y = sf$y,
+              m = sf$n_obs,
+              Q = Q)
+  
+  param <- list(beta_0 = 0,
+                phi = rep(0, dat$n),
+                u = rep(0, dat$n),
+                logit_pi = 0,
+                sigma_phi = 1)
+  
+  obj <- TMB::MakeADFun(
+    data = c(model = "bym2", dat),
+    parameters = param,
+    random = c("beta_0", "phi", "u"),
     DLL = "arealutils_TMBExports"
   )
   

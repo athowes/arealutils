@@ -62,7 +62,7 @@ iid_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores
   obj <- TMB::MakeADFun(
     data = c(model = "iid", dat),
     parameters = param,
-    random = "phi",
+    random = c("beta_0", "phi"),
     DLL = "arealutils_TMBExports"
   )
   
@@ -106,7 +106,47 @@ besag_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cor
   obj <- TMB::MakeADFun(
     data = c(model = "besag", dat),
     parameters = param,
-    random = "phi",
+    random = c("beta_0", "phi"),
+    DLL = "arealutils_TMBExports"
+  )
+  
+  fit <- tmbstan::tmbstan(
+    obj = obj,
+    warmup = nsim_warm,
+    iter = nsim_iter,
+    chains = chains,
+    cores = cores
+  )
+  
+  return(fit)
+}
+
+#' Fit BYM2 Small Area Estimation model using `tmbstan`.
+#'
+#' @inheritParams constant_tmbstan
+#' @examples
+#' bym2_tmbstan(mw, nsim_warm = 0, nsim_iter = 100, cores = 2)
+#' @export
+bym2_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores()){
+  nb <- sf_to_nb(sf)
+  Q <- nb_to_precision(nb)
+  Q <- as(Q, "dgTMatrix")
+  
+  dat <- list(n = nrow(sf),
+              y = sf$y,
+              m = sf$n_obs,
+              Q = Q)
+  
+  param <- list(beta_0 = 0,
+                phi = rep(0, dat$n),
+                u = rep(0, dat$n),
+                logit_pi = 0,
+                sigma_phi = 1)
+  
+  obj <- TMB::MakeADFun(
+    data = c(model = "bym2", dat),
+    parameters = param,
+    random = c("beta_0", "phi", "u"),
     DLL = "arealutils_TMBExports"
   )
   

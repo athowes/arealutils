@@ -61,7 +61,7 @@ iid_aghq <- function(sf, k = 3, its = 1000){
   obj <- TMB::MakeADFun(
     data = c(model = "iid", dat),
     parameters = param,
-    random = "phi",
+    random = c("beta_0", "phi"),
     DLL = "arealutils_TMBExports"
   )
   
@@ -104,7 +104,7 @@ besag_aghq <- function(sf, k = 3, its = 1000){
   obj <- TMB::MakeADFun(
     data = c(model = "iid", dat),
     parameters = param,
-    random = "phi",
+    random = c("beta_0", "phi"),
     DLL = "arealutils_TMBExports"
   )
   
@@ -113,6 +113,40 @@ besag_aghq <- function(sf, k = 3, its = 1000){
     objective = obj$fn,
     gradient = obj$gr,
     control = list(iter.max = its, trace = 0)
+  )
+  
+  quad <- aghq::marginal_laplace_tmb(ff = obj, k = k, startingvalue = obj$par)
+  
+  return(quad)
+}
+
+#' Fit BYM2 Small Area Estimation model using `aghq`.
+#'
+#' @inheritParams constant_aghq
+#' @examples
+#' bym2_aghq(mw, its = 100)
+#' @export
+bym2_aghq <- function(sf, k = 3, its = 1000){
+  nb <- sf_to_nb(sf)
+  Q <- nb_to_precision(nb)
+  Q <- as(Q, "dgTMatrix")
+  
+  dat <- list(n = nrow(sf),
+              y = sf$y,
+              m = sf$n_obs,
+              Q = Q)
+  
+  param <- list(beta_0 = 0,
+                phi = rep(0, dat$n),
+                u = rep(0, dat$n),
+                logit_pi = 0,
+                sigma_phi = 1)
+  
+  obj <- TMB::MakeADFun(
+    data = c(model = "bym2", dat),
+    parameters = param,
+    random = c("beta_0", "phi", "u"),
+    DLL = "arealutils_TMBExports"
   )
   
   quad <- aghq::marginal_laplace_tmb(ff = obj, k = k, startingvalue = obj$par)

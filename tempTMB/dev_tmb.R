@@ -3,31 +3,8 @@ library(TMB)
 
 mw <- sf::st_as_sf(mw)
 
-#' Constant
-compile("constant.cpp")
-dyn.load(dynlib("constant"))
-
-#' Develop package function
-
-#' Test works using packaged function
 constant_tmb(mw, its = 1000)
-
-#' IID
-compile("iid.cpp")
-dyn.load(dynlib("iid"))
-
-#' Develop package function
-
-#' Test works using packaged function
 iid_tmb(mw, its = 1000)
-
-#' Besag
-compile("besag.cpp")
-dyn.load(dynlib("besag"))
-
-#' Develop package function
-
-#' Test works using packaged function
 besag_tmb(mw, its = 1000)
 
 #' BYM2
@@ -37,7 +14,7 @@ dyn.load(dynlib("bym2"))
 #' Develop package function
 
 #' Test works using packaged function
-besag_tmb(mw, its = 1000)
+bym2_tmb(mw, its = 1000)
 
 #' FCK
 compile("fck.cpp")

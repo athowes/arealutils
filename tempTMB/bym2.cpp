@@ -13,7 +13,7 @@ Type objective_function<Type>::operator()()
   // Parameter block
   PARAMETER(beta_0); // Intercept
   PARAMETER_VECTOR(phi); // Spatial effects
-  PARAMETER_VECTOR(phi_u); // Spatial component of spatial effects
+  PARAMETER_VECTOR(u); // Spatial component of spatial effects
   PARAMETER(logit_pi); // 
   PARAMETER(sigma_phi); // Standard deviation of spatial effects
   
@@ -37,9 +37,9 @@ Type objective_function<Type>::operator()()
   // Constant terms omitted: -0.5 * (n + rank(Q)) * log(2 * M_PI) + 0.5 * log|Q|
   nll -= -0.5 * n * (2 * log(sigma_phi) + log(1 - pi));  // Normalising constant
   nll -= -0.5 / (sigma_phi * sigma_phi * (1 - pi)) * (phi * phi).sum();
-  nll -= sqrt(pi) / (sigma_phi * (1 - pi)) * (phi * phi_u).sum();
-  nll -= -0.5 * (phi_u * (Q * phi_u)).sum();
-  nll -= -0.5 * pi / (1 - pi) * (phi_u * phi_u).sum();
+  nll -= sqrt(pi) / (sigma_phi * (1 - pi)) * (phi * u).sum();
+  nll -= -0.5 * (u * (Q * u)).sum();
+  nll -= -0.5 * pi / (1 - pi) * (u * u).sum();
   
   nll -= dbinom_robust(y, m, eta, true).sum();
   

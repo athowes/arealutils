@@ -37,10 +37,19 @@
     <loc>/reference/border_precision.html</loc>
   </url>
   <url>
+    <loc>/reference/bym2_aghq.html</loc>
+  </url>
+  <url>
     <loc>/reference/bym2_inla.html</loc>
   </url>
   <url>
     <loc>/reference/bym2_stan.html</loc>
+  </url>
+  <url>
+    <loc>/reference/bym2_tmb.html</loc>
+  </url>
+  <url>
+    <loc>/reference/bym2_tmbstan.html</loc>
   </url>
   <url>
     <loc>/reference/centroid_covariance.html</loc>

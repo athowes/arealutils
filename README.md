@@ -43,12 +43,20 @@ See [here](https://mc-stan.org/rstantools/articles/minimal-rstan-package.html).
 
 | Model                                   | `TMB`   | `aghq`  | `tmbstan` | `R-INLA` | `rstan` |
 |:----------------------------------------|:--------|:--------|:----------|:---------|:--------|
-| Constant                                | &check; | &check; | &check;   | &check;  | -       | 
-| Independent and identically distributed | &check; | &check; | &check;   | &check;  | -       | 
-| Besag                                   | &check; | &check; | &check;   | &check;  | -       | 
-| Besag-York-Mollié  2                    | -       | -       | -         | &check;  | -       | 
-| Centroid kernel (fixed lengthscale)     | -       | -       | -         | &check;  | -       | 
-| Integrated kernel (fixed lengthscale)   | -       | -       | -         | &check;  | -       | 
-| Centroid kernel                         | -       | -       | -         | -        | -       | 
-| Integrated kernel                       | -       | -       | -         | -        | -       | 
+| Constant                                | &check; | &check; | &check;   | &check;  | &rarr;  | 
+| Independent and identically distributed | &check; | &check; | &check;   | &check;  | &rarr;  | 
+| Besag                                   | &check; | &check; | &check;   | &check;  | &rarr;  |  
+| Besag-York-Mollié  2                    | &check; | &check; | &check;   | &check;  | &rarr;  |  
+| Centroid kernel (fixed lengthscale)     | -       | -       | -         | &check;  | &rarr;  |  
+| Integrated kernel (fixed lengthscale)   | -       | -       | -         | &check;  | &rarr;  |  
+| Centroid kernel                         | -       | -       | -         | -        | &rarr;  |  
+| Integrated kernel                       | -       | -       | -         | -        | &rarr;  | 
 
+
+* &check;: done
+* &rarr;: done but temporarily stored elsewhere (`rstan` compilation times when building the package slow development)
+
+## Common tasks
+
+* To build the website, use `pkgdown::build_site()`
+* To document functions, use `devtools::document()`
