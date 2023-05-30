@@ -13,6 +13,9 @@
     <loc>/reference/arealutils-package.html</loc>
   </url>
   <url>
+    <loc>/reference/besag_aghq.html</loc>
+  </url>
+  <url>
     <loc>/reference/besag_inla.html</loc>
   </url>
   <url>
@@ -20,6 +23,9 @@
   </url>
   <url>
     <loc>/reference/besag_tmb.html</loc>
+  </url>
+  <url>
+    <loc>/reference/besag_tmbstan.html</loc>
   </url>
   <url>
     <loc>/reference/best_average.html</loc>
@@ -49,10 +55,19 @@
     <loc>/reference/ck_stan.html</loc>
   </url>
   <url>
+    <loc>/reference/constant_aghq.html</loc>
+  </url>
+  <url>
     <loc>/reference/constant_inla.html</loc>
   </url>
   <url>
     <loc>/reference/constant_stan.html</loc>
+  </url>
+  <url>
+    <loc>/reference/constant_tmb.html</loc>
+  </url>
+  <url>
+    <loc>/reference/constant_tmbstan.html</loc>
   </url>
   <url>
     <loc>/reference/create_folds.html</loc>
@@ -94,10 +109,19 @@
     <loc>/reference/held_out_metrics.html</loc>
   </url>
   <url>
+    <loc>/reference/iid_aghq.html</loc>
+  </url>
+  <url>
     <loc>/reference/iid_inla.html</loc>
   </url>
   <url>
     <loc>/reference/iid_stan.html</loc>
+  </url>
+  <url>
+    <loc>/reference/iid_tmb.html</loc>
+  </url>
+  <url>
+    <loc>/reference/iid_tmbstan.html</loc>
   </url>
   <url>
     <loc>/reference/ik_stan.html</loc>
@@ -134,6 +158,9 @@
   </url>
   <url>
     <loc>/reference/norm_ADFun.html</loc>
+  </url>
+  <url>
+    <loc>/reference/pipe.html</loc>
   </url>
   <url>
     <loc>/reference/plot_graph.html</loc>

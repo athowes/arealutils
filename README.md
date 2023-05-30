@@ -8,19 +8,6 @@ public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostat
 
 <!-- badges: end -->
 
-## Models
-
-| Model                                   | `TMB`   | `aghq`  | `tmbstan` | `R-INLA` | `rstan` |
-|:----------------------------------------|:--------|:--------|:----------|:---------|:--------|
-| Constant                                | &check; | &check; | &check;   | &check;  | -       | 
-| Independent and identically distributed | &check; | &check; | &check;   | &check;  | -       | 
-| Besag                                   | &check; | &check; | &check;   | &check;  | -       | 
-| Besag-York-Mollié  2                    | -       | -       | -         | &check;  | -       | 
-| Centroid kernel (fixed lengthscale)     | -       | -       | -         | &check;  | -       | 
-| Integrated kernel (fixed lengthscale)   | -       | -       | -         | &check;  | -       | 
-| Centroid kernel                         | -       | -       | -         | -        | -       | 
-| Integrated kernel                       | -       | -       | -         | -        | -       | 
-
 ## Installation
 
 This R package is being developed in support of the analysis in [`areal-comparison`](https://github.com/athowes/areal-comparison).
@@ -52,4 +39,16 @@ See [here](https://mc-stan.org/rstantools/articles/minimal-rstan-package.html).
 2. Run `pkgbuild::compile_dll()` to perform a fake R CMD install
 4. Run `devtools::install()` to install the package locally
 
+## Models
+
+| Model                                   | `TMB`   | `aghq`  | `tmbstan` | `R-INLA` | `rstan` |
+|:----------------------------------------|:--------|:--------|:----------|:---------|:--------|
+| Constant                                | &check; | &check; | &check;   | &check;  | -       | 
+| Independent and identically distributed | &check; | &check; | &check;   | &check;  | -       | 
+| Besag                                   | &check; | &check; | &check;   | &check;  | -       | 
+| Besag-York-Mollié  2                    | -       | -       | -         | &check;  | -       | 
+| Centroid kernel (fixed lengthscale)     | -       | -       | -         | &check;  | -       | 
+| Integrated kernel (fixed lengthscale)   | -       | -       | -         | &check;  | -       | 
+| Centroid kernel                         | -       | -       | -         | -        | -       | 
+| Integrated kernel                       | -       | -       | -         | -        | -       | 
 

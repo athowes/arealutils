@@ -69,6 +69,117 @@
 <a class="anchor" aria-label="anchor" href="#tmb-and-rstan"></a>
 </h2>
 <p>This package uses compiled models from both <code>TMB</code> and <code>rstan</code>. To do this we make use of the very helpful <code>TMBtools</code> and <code>rstantools</code> to set-up the package.</p>
+<div class="section level3">
+<h3 id="guidelines-for-adding-a-new-tmb-model">Guidelines for adding a new <code>TMB</code> model<a class="anchor" aria-label="anchor" href="#guidelines-for-adding-a-new-tmb-model"></a>
+</h3>
+<p>See <a href="https://rdrr.io/github/mlysy/TMBtools/f/vignettes/TMBtools.Rmd" class="external-link">here</a>.</p>
+<ol style="list-style-type: decimal">
+<li>Create <code>model.hpp</code> in <code>arealutils/src/TMB</code>
+</li>
+<li>Run <code><a href="https://rdrr.io/pkg/TMBtools/man/export_models.html" class="external-link">TMBtools::export_models()</a></code>
+</li>
+<li>Run <code><a href="https://devtools.r-lib.org/reference/install.html" class="external-link">devtools::install()</a></code> to install the package locally</li>
+</ol>
+</div>
+<div class="section level3">
+<h3 id="guidelines-for-adding-a-new-rstan-model">Guidelines for adding a new <code>rstan</code> model<a class="anchor" aria-label="anchor" href="#guidelines-for-adding-a-new-rstan-model"></a>
+</h3>
+<p>See <a href="https://mc-stan.org/rstantools/articles/minimal-rstan-package.html" class="external-link">here</a>.</p>
+<ol style="list-style-type: decimal">
+<li>Create <code>model.stan</code> in <code>arealutils/inst/stan</code>
+</li>
+<li>Run <code><a href="https://rdrr.io/pkg/pkgbuild/man/compile_dll.html" class="external-link">pkgbuild::compile_dll()</a></code> to perform a fake R CMD install</li>
+<li>Run <code><a href="https://devtools.r-lib.org/reference/install.html" class="external-link">devtools::install()</a></code> to install the package locally</li>
+</ol>
+</div>
+</div>
+<div class="section level2">
+<h2 id="models">Models<a class="anchor" aria-label="anchor" href="#models"></a>
+</h2>
+<table class="table">
+<colgroup>
+<col width="46%">
+<col width="10%">
+<col width="10%">
+<col width="12%">
+<col width="11%">
+<col width="10%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Model</th>
+<th align="left"><code>TMB</code></th>
+<th align="left"><code>aghq</code></th>
+<th align="left"><code>tmbstan</code></th>
+<th align="left"><code>R-INLA</code></th>
+<th align="left"><code>rstan</code></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Constant</td>
+<td align="left">✓</td>
+<td align="left">✓</td>
+<td align="left">✓</td>
+<td align="left">✓</td>
+<td align="left">-</td>
+</tr>
+<tr class="even">
+<td align="left">Independent and identically distributed</td>
+<td align="left">✓</td>
+<td align="left">✓</td>
+<td align="left">✓</td>
+<td align="left">✓</td>
+<td align="left">-</td>
+</tr>
+<tr class="odd">
+<td align="left">Besag</td>
+<td align="left">✓</td>
+<td align="left">✓</td>
+<td align="left">✓</td>
+<td align="left">✓</td>
+<td align="left">-</td>
+</tr>
+<tr class="even">
+<td align="left">Besag-York-Mollié 2</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">✓</td>
+<td align="left">-</td>
+</tr>
+<tr class="odd">
+<td align="left">Centroid kernel (fixed lengthscale)</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">✓</td>
+<td align="left">-</td>
+</tr>
+<tr class="even">
+<td align="left">Integrated kernel (fixed lengthscale)</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">✓</td>
+<td align="left">-</td>
+</tr>
+<tr class="odd">
+<td align="left">Centroid kernel</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">-</td>
+</tr>
+<tr class="even">
+<td align="left">Integrated kernel</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">
@@ -97,7 +208,6 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://www.repostatus.org/#wip" class="external-link"><img src="https://www.repostatus.org/badges/latest/wip.svg" alt="Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public."></a></li>
-<li><a href="https://github.com/athowes/arealutils/actions" class="external-link"><img src="https://github.com/athowes/arealutils/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R build status"></a></li>
 </ul>
 </div>
 
