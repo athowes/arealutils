@@ -14,14 +14,14 @@ status](https://github.com/athowes/arealutils/actions/workflows/R-CMD-check.yaml
 
 | Model                                   | `TMB`   | `aghq`  | `tmbstan` | `R-INLA` | `rstan` |
 |:----------------------------------------|:--------|:--------|:----------|:---------|:--------|
-| Constant                                | &check; | - | -   | &check;  | - | 
-| Independent and identically distributed | &check; | - | -   | &check;  | - | 
-| Besag                                   | &check; | - | -   | &check;  | - | 
-| Besag-York-Mollié  2                    | - | - | -   | &check;  | - | 
-| Centroid kernel (fixed lengthscale)     | - | - | -   | &check;  | - | 
-| Integrated kernel (fixed lengthscale)   | - | - | -   | &check;  | - | 
-| Centroid kernel                         | - | - | -   | -  | - | 
-| Integrated kernel                       | - | - | -   | -  | - | 
+| Constant                                | &check; | -       | &check;   | &check;  | -       | 
+| Independent and identically distributed | &check; | -       | -         | &check;  | -       | 
+| Besag                                   | &check; | -       | -         | &check;  | -       | 
+| Besag-York-Mollié  2                    | -       | -       | -         | &check;  | -       | 
+| Centroid kernel (fixed lengthscale)     | -       | -       | -         | &check;  | -       | 
+| Integrated kernel (fixed lengthscale)   | -       | -       | -         | &check;  | -       | 
+| Centroid kernel                         | -       | -       | -         | -        | -       | 
+| Integrated kernel                       | -       | -       | -         | -        | -       | 
 
 ## Installation
 
