@@ -6,6 +6,7 @@
 #include "bym2.hpp"
 #include "constant.hpp"
 #include "iid.hpp"
+#include "mvn_covariance.hpp"
 
 template<class Type>
 Type objective_function<Type>::operator() () {
@@ -18,6 +19,8 @@ Type objective_function<Type>::operator() () {
     return constant(this);
   } else if(model == "iid") {
     return iid(this);
+  } else if(model == "mvn_covariance") {
+    return mvn_covariance(this);
   } else {
     Rf_error("Unknown model.");
   }

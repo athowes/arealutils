@@ -6,15 +6,8 @@ mw <- sf::st_as_sf(mw)
 constant_tmb(mw, its = 1000)
 iid_tmb(mw, its = 1000)
 besag_tmb(mw, its = 1000)
-
-#' BYM2
-compile("bym2.cpp")
-dyn.load(dynlib("bym2"))
-
-#' Develop package function
-
-#' Test works using packaged function
 bym2_tmb(mw, its = 1000)
+fck_tmb(mw, its = 1000)
 
 #' FCK
 compile("fck.cpp")
