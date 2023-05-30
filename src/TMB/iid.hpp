@@ -6,7 +6,6 @@
 #undef TMB_OBJECTIVE_PTR
 #define TMB_OBJECTIVE_PTR obj
 
-// negative log-likelihood of the gamma distribution
 template<class Type>
 Type iid(objective_function<Type>* obj) {
   // Data block

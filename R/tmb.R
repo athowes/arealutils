@@ -87,26 +87,28 @@ iid_tmb <- function(sf, its = 1000){
 #' \code{nlminb}.
 #' @examples
 #' besag_tmb(mw, its = 100)
+#' @export
 besag_tmb <- function(sf, its = 1000){
-  
-  compile("tmb/model2.cpp")
-  dyn.load(dynlib("tmb/model2"))
-  
   nb <- sf_to_nb(sf)
   Q <- nb_to_precision(nb)
+  Q <- as(Q, "dgTMatrix")
   
   dat <- list(n = nrow(sf),
               y = sf$y,
               m = sf$n_obs,
-              Q = Q)
+              Q = Q,
+              Qrank = as.integer(Matrix::rankMatrix(Q)))
   
   param <- list(beta_0 = 0,
                 phi = rep(0, dat$n),
-                l_sigma_phi = 0)
+                sigma_phi = 1)
   
-  obj <- MakeADFun(data = dat,
-                   parameters = param,
-                   DLL = "model2")
+  obj <- TMB::MakeADFun(
+    data = c(model = "besag", dat),
+    parameters = param,
+    random = "phi",
+    DLL = "arealutils_TMBExports"
+  )
   
   opt <- nlminb(start = obj$par,
                 objective = obj$fn,

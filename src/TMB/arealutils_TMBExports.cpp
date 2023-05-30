@@ -2,12 +2,15 @@
 
 #define TMB_LIB_INIT R_init_arealutils_TMBExports
 #include <TMB.hpp>
+#include "besag.hpp"
 #include "iid.hpp"
 
 template<class Type>
 Type objective_function<Type>::operator() () {
   DATA_STRING(model);
-  if(model == "iid") {
+  if(model == "besag") {
+    return besag(this);
+  } else if(model == "iid") {
     return iid(this);
   } else {
     Rf_error("Unknown model.");
