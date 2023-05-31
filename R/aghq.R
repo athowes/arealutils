@@ -195,3 +195,44 @@ fck_aghq <- function(sf, k = 3, its = 1000, kernel = matern, ...){
   
   return(quad)
 }
+
+#' Fit Integrated MVN Small Area Estimation model using `aghq`.
+#'
+#' Random effects have a multivariate Gaussian distribution with covariance
+#' matrix calculated using [`integrated_covariance`].
+#'
+#' @inheritParams constant_aghq
+#' @inheritParams integrated_covariance
+#' @examples
+#' fik_tmb(mw, its = 100)
+#' @export
+fik_aghq <- function(sf, k = 3, its = 1000, L = 10, type = "hexagonal", kernel = matern, ...){
+  
+  cov <- integrated_covariance(sf,  L = L, type = type, kernel, ...)
+  cov <- cov / riebler_gv(cov) # Standardise so tau prior is right
+  
+  dat <- list(n = nrow(sf),
+              y = sf$y,
+              m = sf$n_obs,
+              Sigma = cov)
+  
+  param <- list(beta_0 = 0,
+                phi = rep(0, dat$n),
+                sigma_phi = 1)
+  
+  obj <- TMB::MakeADFun(
+    data = c(model = "mvn_covariance", dat),
+    parameters = param,
+    random = c("beta_0", "phi"),
+    DLL = "arealutils_TMBExports"
+  )
+  
+  opt <- nlminb(start = obj$par,
+                objective = obj$fn,
+                gradient = obj$gr,
+                control = list(iter.max = its, trace = 0))
+  
+  quad <- aghq::marginal_laplace_tmb(ff = obj, k = k, startingvalue = obj$par)
+  
+  return(quad)
+}

@@ -47,8 +47,8 @@ See [here](https://mc-stan.org/rstantools/articles/minimal-rstan-package.html).
 | Independent and identically distributed | &check; | &check; | &check;   | &check;  | &rarr;  | 
 | Besag                                   | &check; | &check; | &check;   | &check;  | &rarr;  |  
 | Besag-York-Mollié  2                    | &check; | &check; | &check;   | &check;  | &rarr;  |  
-| Centroid kernel (fixed lengthscale)     | &check; | -       | -         | &check;  | &rarr;  |  
-| Integrated kernel (fixed lengthscale)   | -       | -       | -         | &check;  | &rarr;  |  
+| Centroid kernel (fixed lengthscale)     | &check; | &check; | &check;   | &check;  | &rarr;  |  
+| Integrated kernel (fixed lengthscale)   | &check; | &check; | &check;   | &check;  | &rarr;  |  
 | Centroid kernel                         | -       | -       | -         | -        | &rarr;  |  
 | Integrated kernel                       | -       | -       | -         | -        | &rarr;  | 
 

@@ -203,3 +203,45 @@ fck_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores
   
   return(fit)
 }
+
+#' Fit Integrated MVN Small Area Estimation model using `tmbstan`.
+#'
+#' Random effects have a multivariate Gaussian distribution with covariance
+#' matrix calculated using [`integrated_covariance`].
+#'
+#' @inheritParams constant_tmbstan
+#' @inheritParams integrated_covariance
+#' @examples
+#' fik_tmbstan(mw, nsim_warm = 0, nsim_iter = 100, cores = 2)
+#' @export
+fik_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores(), L = 10, type = "hexagonal", kernel = matern, ...){
+  
+  cov <- integrated_covariance(sf,  L = L, type = type, kernel, ...)
+  cov <- cov / riebler_gv(cov) # Standardise so tau prior is right
+  
+  dat <- list(n = nrow(sf),
+              y = sf$y,
+              m = sf$n_obs,
+              Sigma = cov)
+  
+  param <- list(beta_0 = 0,
+                phi = rep(0, dat$n),
+                sigma_phi = 1)
+  
+  obj <- TMB::MakeADFun(
+    data = c(model = "mvn_covariance", dat),
+    parameters = param,
+    random = c("beta_0", "phi"),
+    DLL = "arealutils_TMBExports"
+  )
+  
+  fit <- tmbstan::tmbstan(
+    obj = obj,
+    warmup = nsim_warm,
+    iter = nsim_iter,
+    chains = chains,
+    cores = cores
+  )
+  
+  return(fit)
+}

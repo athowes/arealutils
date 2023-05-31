@@ -8,14 +8,7 @@ iid_tmb(mw, its = 1000)
 besag_tmb(mw, its = 1000)
 bym2_tmb(mw, its = 1000)
 fck_tmb(mw, its = 1000)
-
-#' FIK
-compile("fik.cpp")
-dyn.load(dynlib("fik"))
-
-#' Develop package function
-
-#' Test works using packaged function
+fik_tmb(mw, its = 1000)
 
 #' CK
 compile("ck.cpp")
