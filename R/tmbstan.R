@@ -56,7 +56,7 @@ iid_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores
   param <- list(
     beta_0 = 0,
     phi = rep(0, nrow(sf)),
-    sigma_phi = 1
+    log_sigma_phi = 0
   )
   
   obj <- TMB::MakeADFun(
@@ -101,7 +101,7 @@ besag_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cor
   
   param <- list(beta_0 = 0,
                 phi = rep(0, dat$n),
-                sigma_phi = 1)
+                log_sigma_phi = 0)
   
   obj <- TMB::MakeADFun(
     data = c(model = "besag", dat),
@@ -141,7 +141,7 @@ bym2_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, core
                 phi = rep(0, dat$n),
                 u = rep(0, dat$n),
                 logit_pi = 0,
-                sigma_phi = 1)
+                log_sigma_phi = 0)
   
   obj <- TMB::MakeADFun(
     data = c(model = "bym2", dat),
@@ -184,7 +184,7 @@ fck_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores
   
   param <- list(beta_0 = 0,
                 phi = rep(0, dat$n),
-                sigma_phi = 1)
+                log_sigma_phi = 0)
   
   obj <- TMB::MakeADFun(
     data = c(model = "mvn_covariance", dat),
@@ -226,7 +226,7 @@ fik_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores
   
   param <- list(beta_0 = 0,
                 phi = rep(0, dat$n),
-                sigma_phi = 1)
+                log_sigma_phi = 0)
   
   obj <- TMB::MakeADFun(
     data = c(model = "mvn_covariance", dat),

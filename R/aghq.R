@@ -55,7 +55,7 @@ iid_aghq <- function(sf, k = 3, its = 1000){
   param <- list(
     beta_0 = 0,
     phi = rep(0, nrow(sf)),
-    sigma_phi = 1
+    log_sigma_phi = 0
   )
   
   obj <- TMB::MakeADFun(
@@ -98,7 +98,7 @@ besag_aghq <- function(sf, k = 3, its = 1000){
   param <- list(
     beta_0 = 0,
     phi = rep(0, nrow(sf)),
-    sigma_phi = 1
+    log_sigma_phi = 0
   )
   
   obj <- TMB::MakeADFun(
@@ -140,7 +140,7 @@ bym2_aghq <- function(sf, k = 3, its = 1000){
                 phi = rep(0, dat$n),
                 u = rep(0, dat$n),
                 logit_pi = 0,
-                sigma_phi = 1)
+                log_sigma_phi = 0)
   
   obj <- TMB::MakeADFun(
     data = c(model = "bym2", dat),
@@ -177,7 +177,7 @@ fck_aghq <- function(sf, k = 3, its = 1000, kernel = matern, ...){
   
   param <- list(beta_0 = 0,
                 phi = rep(0, dat$n),
-                sigma_phi = 1)
+                log_sigma_phi = 0)
   
   obj <- TMB::MakeADFun(
     data = c(model = "mvn_covariance", dat),
@@ -218,7 +218,7 @@ fik_aghq <- function(sf, k = 3, its = 1000, L = 10, type = "hexagonal", kernel =
   
   param <- list(beta_0 = 0,
                 phi = rep(0, dat$n),
-                sigma_phi = 1)
+                log_sigma_phi = 0)
   
   obj <- TMB::MakeADFun(
     data = c(model = "mvn_covariance", dat),

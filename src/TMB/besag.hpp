@@ -19,9 +19,10 @@ Type besag(objective_function<Type>* obj) {
   // Parameter block
   PARAMETER(beta_0); // Intercept
   PARAMETER_VECTOR(phi); // Spatial effects
-  PARAMETER(sigma_phi); // Standard deviation of spatial effects
+  PARAMETER(log_sigma_phi); // Log standard deviation of spatial effects
   
   // Transformed parameters block
+  Type sigma_phi(exp(log_sigma_phi));
   vector<Type> eta(beta_0 + sigma_phi * phi);
   vector<Type> rho(invlogit(eta));
   
@@ -30,7 +31,7 @@ Type besag(objective_function<Type>* obj) {
   nll = Type(0.0);
   
   // Likelihood from priors
-  nll -= dnorm(sigma_phi, Type(0), Type(100), true); // Approximating the uniform prior
+  nll -= dnorm(sigma_phi, Type(0), Type(100), true) + log_sigma_phi; // Approximating the uniform prior
   nll -= dnorm(beta_0, Type(-2), Type(5), true); // NB: true puts the likelihood on the log-scale
   
   // Besag
