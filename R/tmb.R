@@ -114,9 +114,7 @@ besag_tmb <- function(sf, its = 1000){
                 gradient = obj$gr,
                 control = list(iter.max = its, trace = 0))
   
-  sd_out <- sdreport(obj,
-                     par.fixed = opt$par,
-                     getJointPrecision = TRUE)
+  sd_out <- TMB::sdreport(obj, par.fixed = opt$par, getJointPrecision = TRUE)
   
   return(sd_out)
 }
@@ -155,14 +153,12 @@ bym2_tmb <- function(sf, its = 1000){
                 gradient = obj$gr,
                 control = list(iter.max = its, trace = 0))
   
-  sd_out <- sdreport(obj,
-                     par.fixed = opt$par,
-                     getJointPrecision = TRUE)
+  sd_out <- TMB::sdreport(obj, par.fixed = opt$par, getJointPrecision = TRUE)
   
   return(sd_out)
 }
 
-#' Fit Centroid MVN Small Area Estimation model using `rstan`.
+#' Fit Centroid MVN Small Area Estimation model using `TMB`.
 #'
 #' Random effects have a multivariate Gaussian distribution with covariance
 #' matrix calculated using [`centroid_covariance`]. Kernel hyper-parameters
@@ -185,7 +181,6 @@ fck_tmb <- function(sf, its = 1000, kernel = matern, ...){
   
   param <- list(beta_0 = 0,
                 phi = rep(0, dat$n),
-                logit_pi = 0,
                 sigma_phi = 1)
   
   obj <- TMB::MakeADFun(
@@ -200,12 +195,7 @@ fck_tmb <- function(sf, its = 1000, kernel = matern, ...){
                 gradient = obj$gr,
                 control = list(iter.max = its, trace = 0))
   
-  sd_out <- sdreport(obj,
-                     par.fixed = opt$par,
-                     getJointPrecision = TRUE)
+  sd_out <- TMB::sdreport(obj, par.fixed = opt$par, getJointPrecision = TRUE)
   
   return(sd_out)
-
-  
-  return(fit)
 }

@@ -1,6 +1,6 @@
 #' Develop the other TMB models here!
-library(TMB)
 
+load("data/mw.rda")
 mw <- sf::st_as_sf(mw)
 
 constant_tmb(mw, its = 1000)
@@ -8,14 +8,6 @@ iid_tmb(mw, its = 1000)
 besag_tmb(mw, its = 1000)
 bym2_tmb(mw, its = 1000)
 fck_tmb(mw, its = 1000)
-
-#' FCK
-compile("fck.cpp")
-dyn.load(dynlib("fck"))
-
-#' Develop package function
-
-#' Test works using packaged function
 
 #' FIK
 compile("fik.cpp")
