@@ -34,7 +34,7 @@ Type mvn_covariance(objective_function<Type>* obj) {
   
   using namespace density;
   nll += MVNORM(Sigma)(phi); // On the negative log-scale already
-  
+
   nll -= dbinom_robust(y, m, eta, true).sum();
   
   ADREPORT(rho); // Would like to see posterior prevalence estimates

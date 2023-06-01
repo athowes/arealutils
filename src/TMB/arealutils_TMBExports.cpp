@@ -4,8 +4,10 @@
 #include <TMB.hpp>
 #include "besag.hpp"
 #include "bym2.hpp"
+#include "centroid.hpp"
 #include "constant.hpp"
 #include "iid.hpp"
+#include "integrated.hpp"
 #include "mvn_covariance.hpp"
 
 template<class Type>
@@ -15,10 +17,14 @@ Type objective_function<Type>::operator() () {
     return besag(this);
   } else if(model == "bym2") {
     return bym2(this);
+  } else if(model == "centroid") {
+    return centroid(this);
   } else if(model == "constant") {
     return constant(this);
   } else if(model == "iid") {
     return iid(this);
+  } else if(model == "integrated") {
+    return integrated(this);
   } else if(model == "mvn_covariance") {
     return mvn_covariance(this);
   } else {

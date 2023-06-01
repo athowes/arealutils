@@ -4,7 +4,7 @@
 #define custom_functions_hpp
 
 template<class Type>
-Type mean(const matrix<Type> mat) {
+Type matrix_average(const matrix<Type> mat) {
   int num_elements = mat.rows() * mat.cols();
   Type sum = 0;
   
@@ -61,14 +61,14 @@ matrix<Type> cov_sample_average(matrix<Type> S, Type l, int n, vector<int> start
     // Diagonal entries (apart from the last)
     int start_i = start_index(i);
     int length_i = sample_lengths(i);
-    K(i, i) = mean(block(kS, start_i, start_i, length_i, length_i));
+    K(i, i) = matrix_average(block(kS, start_i, start_i, length_i, length_i));
     for (int j = i + 1; j < n; j++) {
       // Off-diagonal entries
-      K(i, j) = mean(block(kS, start_i, start_index(j), length_i, sample_lengths(j)));
+      K(i, j) = matrix_average(block(kS, start_i, start_index(j), length_i, sample_lengths(j)));
       K(j, i) = K(i, j);
     }
   }
-  K(n - 1, n - 1) = mean(block(kS, start_index(n - 1), start_index(n - 1), sample_lengths(n - 1), sample_lengths(n - 1)));
+  K(n - 1, n - 1) = matrix_average(block(kS, start_index(n - 1), start_index(n - 1), sample_lengths(n - 1), sample_lengths(n - 1)));
   
   return K;
 }
