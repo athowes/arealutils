@@ -11,3 +11,4 @@ src/TMB/*.dll
 tempTMB/*.o
 tempTMB/*.so
 tempTMB/*.dll
+.DS_Store
