@@ -11,17 +11,9 @@ fck_tmb(mw, its = 1000)
 fik_tmb(mw, its = 1000)
 
 #' CK
-compile("ck.cpp")
-dyn.load(dynlib("ck"))
-
-#' Develop package function
-
-#' Test works using packaged function
+TMB::compile("ck.cpp")
+dyn.load(TMB::dynlib("ck"))
 
 #' IK
-compile("ik.cpp")
-dyn.load(dynlib("ik"))
-
-#' Develop package function
-
-#' Test works using packaged function
+TMB::compile("ik.cpp")
+dyn.load(TMB::dynlib("ik"))
