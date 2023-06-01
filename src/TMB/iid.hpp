@@ -27,8 +27,8 @@ Type iid(objective_function<Type>* obj) {
   Type nll;
   nll = Type(0.0);
   
-  nll -= dnorm(sigma_phi, Type(0), Type(100), true) + log_sigma_phi; // Approximating the uniform prior
-  nll -= dnorm(beta_0, Type(-2), Type(5), true); // NB: true puts the likelihood on the log-scale
+  nll -= dnorm(sigma_phi, Type(0), Type(2.5), true) + log_sigma_phi; // Change of variables
+  nll -= dnorm(beta_0, Type(-2), Type(1), true); // NB: true puts the likelihood on the log-scale
   nll -= dnorm(phi, Type(0), sigma_phi, true).sum();
   
   nll -= dbinom_robust(y, m, eta, true).sum();

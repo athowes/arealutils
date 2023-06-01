@@ -33,8 +33,8 @@ Type bym2(objective_function<Type>* obj) {
   nll = Type(0.0);
   
   // Likelihood from priors
-  nll -= dnorm(sigma_phi, Type(0), Type(100), true) + log_sigma_phi; // Approximating the uniform prior
-  nll -= dnorm(beta_0, Type(-2), Type(5), true); // NB: true puts the likelihood on the log-scale
+  nll -= dnorm(sigma_phi, Type(0), Type(2.5), true) + log_sigma_phi; // Change of variables
+  nll -= dnorm(beta_0, Type(-2), Type(1), true); // NB: true puts the likelihood on the log-scale
   
   nll -= log(pi) +  log(1 - pi);  // Change of variables: logit_pi -> pi
   nll -= dbeta(pi, Type(0.5), Type(0.5), true);

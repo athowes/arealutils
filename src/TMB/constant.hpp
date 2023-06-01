@@ -20,7 +20,7 @@ Type constant(objective_function<Type>* obj) {
   Type nll;
   nll = Type(0.0);
   
-  nll -= dnorm(beta_0, Type(-2), Type(5), true); // NB: true puts the likelihood on the log-scale
+  nll -= dnorm(beta_0, Type(-2), Type(1), true); // NB: true puts the likelihood on the log-scale
   
   nll -= dbinom_robust(y, m, beta_0, true).sum();
   

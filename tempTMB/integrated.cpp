@@ -36,14 +36,13 @@ Type objective_function<Type>::operator()()
   Type nll;
   nll = Type(0.0);
   
-  nll -= dnorm(sigma_phi, Type(0), Type(100), true) + log_sigma_phi; // Approximating the uniform prior
-  nll -= dnorm(beta_0, Type(-2), Type(5), true); // NB: true puts the likelihood on the log-scale
+  nll -= dnorm(sigma_phi, Type(0), Type(2.5), true) + log_sigma_phi; // Change of variables
+  nll -= dnorm(beta_0, Type(-2), Type(1), true); // NB: true puts the likelihood on the log-scale
   
   nll -= a * log(b) - lgamma(a) - (a + 1) * log(l) - b / l; // Inverse gamma
   nll -= log_l; // Change of variables
-  
-  using namespace density;
-  nll += MVNORM(K)(phi); // On the negative log-scale already
+
+  nll += density::MVNORM(K)(phi); // On the negative log-scale already
   
   nll -= dbinom_robust(y, m, eta, true).sum();
   
