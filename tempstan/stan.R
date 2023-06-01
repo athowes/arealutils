@@ -327,8 +327,8 @@ fik_stan <- function(sf, bym2 = FALSE, L = 10, type = "hexagonal", nsim_warm = 1
 #' Fit Bayesian Centroid MVN Small Area Estimation model using `rstan`.
 #'
 #' Random effects have a multivariate Gaussian distribution with covariance
-#' matrix calculated using [`centroid_covariance`]. Unlike `m5_stan`, this
-#' version has a fully Bayesian treatment of kernel hyperparameters.
+#' matrix calculated using [`centroid_covariance`]. Kernel hyperparameters
+#' are given a prior and learnt.
 #'
 #' @inheritParams constant_stan
 #' @param bym2 Logical indicating if the spatial random effects should be convoluted 
@@ -381,6 +381,10 @@ ck_stan <- function(sf, bym2 = FALSE, nsim_warm = 100, nsim_iter = 1000, chains 
 }
 
 #' Fit Bayesian Integrated MVN Small Area Estimation model using `rstan`.
+#'
+#' Random effects have a multivariate Gaussian distribution with covariance
+#' matrix calculated using [`integrated_covariance`]. Kernel hyperparameters
+#' are given a prior and learnt.
 #'
 #' @inheritParams constant_stan
 #' @inheritParams integrated_covariance
