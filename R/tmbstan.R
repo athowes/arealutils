@@ -245,3 +245,46 @@ fik_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores
   
   return(fit)
 }
+
+#' Fit Bayesian Centroid MVN Small Area Estimation model using `tmbstan`.
+#'
+#' Random effects have a multivariate Gaussian distribution with covariance
+#' matrix calculated using [`centroid_covariance`]. Kernel hyperparameters
+#' are given a prior and learnt.
+#'
+#' @inheritParams constant_tmbstan
+#' @examples
+#' ck_tmbstan(mw, nsim_warm = 0, nsim_iter = 100, cores = 2)
+#' @export
+ck_tmbstan <- function(sf, bym2 = FALSE, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores()){
+  
+  D <- centroid_distance(sf)
+  
+  # Parameters of the length-scale prior
+  param <- invgamma_prior(lb = 0.1, ub = max(as.vector(D)), plb = 0.01, pub = 0.01)
+  
+  # ...
+}
+
+#' Fit Bayesian Integrated MVN Small Area Estimation model using `tmbstan`.
+#'
+#' Random effects have a multivariate Gaussian distribution with covariance
+#' matrix calculated using [`integrated_covariance`]. Kernel hyperparameters
+#' are given a prior and learnt.
+#'
+#' @inheritParams constant_tmbstan
+#' @inheritParams integrated_covariance
+#' @examples
+#' ik_tmbstan(mw, nsim_warm = 0, nsim_iter = 100, cores = 2)
+#' @export
+ik_tmbstan <- function(sf, its = 1000, L = 10, type = "hexagonal", ...){
+  
+  n <- nrow(sf)
+  samples <- sf::st_sample(sf, type = type, exact = TRUE, size = rep(L, n))
+  S <- sf::st_distance(samples, samples)
+  
+  # Parameters of the length-scale prior
+  param <- invgamma_prior(lb = 0.1, ub = max(as.vector(S)), plb = 0.01, pub = 0.01)
+  
+  # ...
+}
