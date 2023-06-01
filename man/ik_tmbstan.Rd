@@ -4,10 +4,27 @@
 \alias{ik_tmbstan}
 \title{Fit Bayesian Integrated MVN Small Area Estimation model using \code{tmbstan}.}
 \usage{
-ik_tmbstan(sf, its = 1000, L = 10, type = "hexagonal", ...)
+ik_tmbstan(
+  sf,
+  nsim_warm = 100,
+  nsim_iter = 1000,
+  chains = 4,
+  cores = parallel::detectCores(),
+  L = 10,
+  type = "hexagonal",
+  ...
+)
 }
 \arguments{
 \item{sf}{A simple features object with some geometry.}
+
+\item{nsim_warm}{Number of warmup samples, passed to \code{rstan}.}
+
+\item{nsim_iter}{Number of samples, passed to \code{rstan}.}
+
+\item{chains}{Number of chains, each of which gets \code{nsim_warm + nsim_iter} samples, passed to \code{rstan}.}
+
+\item{cores}{Number of cores, passed to \code{rstan}, defaults to \code{parallel::detectCores()}}
 
 \item{L}{The number of Monte Carlo samples to draw from each area.}
 

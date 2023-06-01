@@ -14,7 +14,6 @@ Type integrated(objective_function<Type>* obj) {
   DATA_INTEGER(n); // Number of regions
   DATA_VECTOR(y); // Vector of responses
   DATA_VECTOR(m); // Vector of sample sizes
-  DATA_MATRIX(D); // Distance between centroids
   
   // Inverse Gamma prior
   DATA_SCALAR(a);

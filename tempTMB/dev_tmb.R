@@ -9,13 +9,5 @@ besag_tmb(mw, its = 1000)
 bym2_tmb(mw, its = 1000)
 fck_tmb(mw, its = 1000)
 fik_tmb(mw, its = 1000)
-# ck_tmb(mw, its = 1000)
-# ik_tmb(mw, its = 1000)
-
-#' CK
-TMB::compile("centroid.cpp")
-dyn.load(TMB::dynlib("centroid"))
-
-#' IK
-TMB::compile("integrated.cpp")
-dyn.load(TMB::dynlib("integrated"))
+system.time({ck_tmb(mw, its = 1000)})
+system.time({ik_tmb(mw, its = 1000)})

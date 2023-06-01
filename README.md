@@ -49,7 +49,7 @@ See [here](https://mc-stan.org/rstantools/articles/minimal-rstan-package.html).
 | Besag-York-Mollié  2                    | &check; | &check; | &check;   | &check;  | &rarr;  |  
 | Centroid kernel (fixed lengthscale)     | &check; | &check; | &check;   | &check;  | &rarr;  |  
 | Integrated kernel (fixed lengthscale)   | &check; | &check; | &check;   | &check;  | &rarr;  |  
-| Centroid kernel                         | -       | -       | -         | -        | &rarr;  |  
+| Centroid kernel                         | &check; | &check; | &check;   | -        | &rarr;  |  
 | Integrated kernel                       | -       | -       | -         | -        | &rarr;  | 
 
 

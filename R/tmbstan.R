@@ -281,11 +281,6 @@ ck_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores 
     DLL = "arealutils_TMBExports"
   )
   
-  opt <- nlminb(start = obj$par,
-                objective = obj$fn,
-                gradient = obj$gr,
-                control = list(iter.max = its, trace = 0))
-  
   fit <- tmbstan::tmbstan(
     obj = obj,
     warmup = nsim_warm,
@@ -342,11 +337,6 @@ ik_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores 
     random = c("beta_0", "phi"),
     DLL = "arealutils_TMBExports"
   )
-  
-  opt <- nlminb(start = obj$par,
-                objective = obj$fn,
-                gradient = obj$gr,
-                control = list(iter.max = its, trace = 0))
   
   fit <- tmbstan::tmbstan(
     obj = obj,

@@ -4,10 +4,12 @@
 \alias{ik_aghq}
 \title{Fit Bayesian Integrated MVN Small Area Estimation model using \code{aghq}.}
 \usage{
-ik_aghq(sf, its = 1000, L = 10, type = "hexagonal", ...)
+ik_aghq(sf, k = 3, its = 1000, L = 10, type = "hexagonal", ...)
 }
 \arguments{
 \item{sf}{A simple features object with some geometry.}
+
+\item{k}{Number of quadrature points per hyperparameter dimension.}
 
 \item{its}{Number of iterations in outer loop optimisation, passed to \code{nlminb}.}
 
@@ -23,5 +25,5 @@ matrix calculated using \code{\link{integrated_covariance}}. Kernel hyperparamet
 are given a prior and learnt.
 }
 \examples{
-ik_aghq(mw, nsim_warm = 0, nsim_iter = 100, cores = 2)
+ik_aghq(, its = 100)
 }

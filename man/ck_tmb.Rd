@@ -4,17 +4,12 @@
 \alias{ck_tmb}
 \title{Fit Bayesian Centroid MVN Small Area Estimation model using \code{TMB}.}
 \usage{
-ck_tmb(
-  sf,
-  bym2 = FALSE,
-  nsim_warm = 100,
-  nsim_iter = 1000,
-  chains = 4,
-  cores = parallel::detectCores()
-)
+ck_tmb(sf, its = 1000)
 }
 \arguments{
 \item{sf}{A simple features object with some geometry.}
+
+\item{its}{Number of iterations in outer loop optimisation, passed to \code{nlminb}.}
 }
 \description{
 Random effects have a multivariate Gaussian distribution with covariance

@@ -251,7 +251,7 @@ fik_tmb <- function(sf, its = 1000, L = 10, type = "hexagonal", kernel = matern,
 #' @examples
 #' ck_tmb(mw, nsim_warm = 0, nsim_iter = 100, cores = 2)
 #' @export
-ck_tmb <- function(sf, bym2 = FALSE, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores()){
+ck_tmb <- function(sf, its = 1000){
   D <- centroid_distance(sf)
   
   # Parameters of the length-scale prior

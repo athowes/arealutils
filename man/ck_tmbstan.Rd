@@ -6,7 +6,6 @@
 \usage{
 ck_tmbstan(
   sf,
-  bym2 = FALSE,
   nsim_warm = 100,
   nsim_iter = 1000,
   chains = 4,
