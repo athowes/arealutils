@@ -5,6 +5,9 @@
 src/*.o
 src/*.so
 src/*.dll
+src/TMB/*.o
+src/TMB/*.so
+src/TMB/*.dll
 tempTMB/*.o
 tempTMB/*.so
 tempTMB/*.dll
