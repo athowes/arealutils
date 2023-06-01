@@ -13,9 +13,9 @@ fik_tmb(mw, its = 1000)
 # ik_tmb(mw, its = 1000)
 
 #' CK
-TMB::compile("ck.cpp")
-dyn.load(TMB::dynlib("ck"))
+TMB::compile("centroid.cpp")
+dyn.load(TMB::dynlib("centroid"))
 
 #' IK
-TMB::compile("ik.cpp")
-dyn.load(TMB::dynlib("ik"))
+TMB::compile("integrated.cpp")
+dyn.load(TMB::dynlib("integrated"))
