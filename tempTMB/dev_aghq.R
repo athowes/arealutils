@@ -1,4 +1,6 @@
 #' Develop the aghq models here!
+
+load("data/mw.rda")
 mw <- sf::st_as_sf(mw)
 
 constant_aghq(mw, its = 1000)

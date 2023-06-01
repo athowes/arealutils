@@ -1,5 +1,5 @@
 #include <TMB.hpp>
-#include "include/custom_functions.hpp"
+#include "custom_functions.hpp"
 
 template <class Type>
 Type objective_function<Type>::operator()()
@@ -8,16 +8,16 @@ Type objective_function<Type>::operator()()
   DATA_INTEGER(n); // Number of regions
   DATA_VECTOR(y); // Vector of responses
   DATA_VECTOR(m); // Vector of sample sizes
-  DATA_MATRIX(D); // Distance between centroids
   
   // Inverse Gamma prior
   DATA_SCALAR(a);
   DATA_SCALAR(b);
   
-  vector<int> sample_lengths(n); // Number of Monte Carlo samples in each area
-  int total_samples; // sum(sample_lengths)
-  vector<int> start_index(n); // Start indices for each group of samples
-  matrix<Type> S(total_samples, total_samples); // Distances between all points (could be sparser!)
+  DATA_IVECTOR(sample_lengths); // Number of Monte Carlo samples in each area
+  DATA_INTEGER(total_samples); // sum(sample_lengths)
+  DATA_IVECTOR(start_index); // Start indices for each group of samples
+  
+  DATA_MATRIX(S); // Distances between all points (could be sparser!)
   
   // Parameter block
   PARAMETER(beta_0); // Intercept

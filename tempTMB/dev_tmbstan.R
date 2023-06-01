@@ -1,4 +1,6 @@
 #' Develop the tmbstan models here!
+
+load("data/mw.rda")
 mw <- sf::st_as_sf(mw)
 
 constant_tmbstan(mw)

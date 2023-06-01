@@ -50,7 +50,7 @@ See [here](https://mc-stan.org/rstantools/articles/minimal-rstan-package.html).
 | Centroid kernel (fixed lengthscale)     | &check; | &check; | &check;   | &check;  | &rarr;  |  
 | Integrated kernel (fixed lengthscale)   | &check; | &check; | &check;   | &check;  | &rarr;  |  
 | Centroid kernel                         | &check; | &check; | &check;   | -        | &rarr;  |  
-| Integrated kernel                       | -       | -       | -         | -        | &rarr;  | 
+| Integrated kernel                       | &check; | &check; | &check;   | -        | &rarr;  | 
 
 
 * &check;: done

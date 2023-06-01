@@ -1,5 +1,5 @@
 #include <TMB.hpp>
-#include "include/custom_functions.hpp"
+#include "custom_functions.hpp"
 
 template <class Type>
 Type objective_function<Type>::operator()()
