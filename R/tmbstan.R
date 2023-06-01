@@ -256,14 +256,45 @@ fik_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores
 #' @examples
 #' ck_tmbstan(mw, nsim_warm = 0, nsim_iter = 100, cores = 2)
 #' @export
-ck_tmbstan <- function(sf, bym2 = FALSE, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores()){
-  
+ck_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores()){
   D <- centroid_distance(sf)
   
   # Parameters of the length-scale prior
   param <- invgamma_prior(lb = 0.1, ub = max(as.vector(D)), plb = 0.01, pub = 0.01)
   
-  # ...
+  dat <- list(n = nrow(sf),
+              y = sf$y,
+              m = sf$n_obs,
+              a = param$a,
+              b = param$b,
+              D = D)
+  
+  param <- list(beta_0 = 0,
+                phi = rep(0, dat$n),
+                log_sigma_phi = 0,
+                log_l = 0)
+  
+  obj <- TMB::MakeADFun(
+    data = c(model = "centroid", dat),
+    parameters = param,
+    random = c("beta_0", "phi"),
+    DLL = "arealutils_TMBExports"
+  )
+  
+  opt <- nlminb(start = obj$par,
+                objective = obj$fn,
+                gradient = obj$gr,
+                control = list(iter.max = its, trace = 0))
+  
+  fit <- tmbstan::tmbstan(
+    obj = obj,
+    warmup = nsim_warm,
+    iter = nsim_iter,
+    chains = chains,
+    cores = cores
+  )
+  
+  return(fit)
 }
 
 #' Fit Bayesian Integrated MVN Small Area Estimation model using `tmbstan`.
@@ -277,8 +308,7 @@ ck_tmbstan <- function(sf, bym2 = FALSE, nsim_warm = 100, nsim_iter = 1000, chai
 #' @examples
 #' ik_tmbstan(mw, nsim_warm = 0, nsim_iter = 100, cores = 2)
 #' @export
-ik_tmbstan <- function(sf, its = 1000, L = 10, type = "hexagonal", ...){
-  
+ik_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores(), L = 10, type = "hexagonal", ...){
   n <- nrow(sf)
   samples <- sf::st_sample(sf, type = type, exact = TRUE, size = rep(L, n))
   S <- sf::st_distance(samples, samples)
@@ -286,5 +316,45 @@ ik_tmbstan <- function(sf, its = 1000, L = 10, type = "hexagonal", ...){
   # Parameters of the length-scale prior
   param <- invgamma_prior(lb = 0.1, ub = max(as.vector(S)), plb = 0.01, pub = 0.01)
   
-  # ...
+  # Data structure for unequal number of points in each area
+  sample_index <- sf::st_intersects(sf, samples)
+  sample_lengths <- lengths(sample_index)
+  start_index <- sapply(sample_index, function(x) x[1])
+  
+  dat <- list(n = nrow(sf),
+              y = sf$y,
+              m = sf$n_obs,
+              a = param$a,
+              b = param$b,
+              sample_lengths = sample_lengths,
+              total_samples = sum(sample_lengths),
+              start_index = start_index,
+              S = S)
+  
+  param <- list(beta_0 = 0,
+                phi = rep(0, dat$n),
+                log_sigma_phi = 0,
+                log_l = 0)
+  
+  obj <- TMB::MakeADFun(
+    data = c(model = "integrated", dat),
+    parameters = param,
+    random = c("beta_0", "phi"),
+    DLL = "arealutils_TMBExports"
+  )
+  
+  opt <- nlminb(start = obj$par,
+                objective = obj$fn,
+                gradient = obj$gr,
+                control = list(iter.max = its, trace = 0))
+  
+  fit <- tmbstan::tmbstan(
+    obj = obj,
+    warmup = nsim_warm,
+    iter = nsim_iter,
+    chains = chains,
+    cores = cores
+  )
+  
+  return(fit)
 }
