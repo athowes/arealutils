@@ -10,7 +10,7 @@ public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostat
 
 ## Installation
 
-This R package is being developed in support of the analysis in [`areal-comparison`](https://github.com/athowes/areal-comparison).
+This R package is being developed in support of the analysis in [`beyond-borders`](https://github.com/athowes/beyond-borders).
 For this reason, many of the functions are relatively unlikely to be of great general use.
 This disclaimer given, the package can be installed via:
 
