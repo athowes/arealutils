@@ -4,7 +4,6 @@
 #'
 #' @param sf A simple features object with some geometry.
 #' @param k Number of quadrature points per hyperparameter dimension.
-#' @param its Number of iterations in outer loop optimisation, passed to `nlminb`.
 #' @examples
 #' constant_aghq(mw)
 #' @export
