@@ -53,14 +53,14 @@ iid_tmb <- function(sf, its = 1000){
   
   param <- list(
     beta_0 = 0,
-    phi = rep(0, nrow(sf)),
-    log_sigma_phi = 0
+    u = rep(0, nrow(sf)),
+    log_sigma_u = 0
   )
   
   obj <- TMB::MakeADFun(
     data = c(model = "iid", dat),
     parameters = param,
-    random = c("beta_0", "phi"),
+    random = c("beta_0", "u"),
     DLL = "arealutils_TMBExports"
   )
   
@@ -99,13 +99,13 @@ besag_tmb <- function(sf, its = 1000){
               Qrank = as.integer(Matrix::rankMatrix(Q)))
   
   param <- list(beta_0 = 0,
-                phi = rep(0, dat$n),
-                log_sigma_phi = 0)
+                u = rep(0, dat$n),
+                log_sigma_u = 0)
   
   obj <- TMB::MakeADFun(
     data = c(model = "besag", dat),
     parameters = param,
-    random = c("beta_0", "phi"),
+    random = c("beta_0", "u"),
     DLL = "arealutils_TMBExports"
   )
   
@@ -136,15 +136,15 @@ bym2_tmb <- function(sf, its = 1000){
               Q = Q)
   
   param <- list(beta_0 = 0,
-                phi = rep(0, dat$n),
                 u = rep(0, dat$n),
-                logit_pi = 0,
-                log_sigma_phi = 0)
+                w = rep(0, dat$n),
+                logit_phi = 0,
+                log_sigma_u = 0)
   
   obj <- TMB::MakeADFun(
     data = c(model = "bym2", dat),
     parameters = param,
-    random = c("beta_0", "phi", "u"),
+    random = c("beta_0", "u", "w"),
     DLL = "arealutils_TMBExports"
   )
   
@@ -180,13 +180,13 @@ fck_tmb <- function(sf, its = 1000, kernel = matern, ...){
               Sigma = cov)
   
   param <- list(beta_0 = 0,
-                phi = rep(0, dat$n),
-                log_sigma_phi = 0)
+                u = rep(0, dat$n),
+                log_sigma_u = 0)
   
   obj <- TMB::MakeADFun(
     data = c(model = "mvn_covariance", dat),
     parameters = param,
-    random = c("beta_0", "phi"),
+    random = c("beta_0", "u"),
     DLL = "arealutils_TMBExports"
   )
   
@@ -221,13 +221,13 @@ fik_tmb <- function(sf, its = 1000, L = 10, type = "hexagonal", kernel = matern,
               Sigma = cov)
   
   param <- list(beta_0 = 0,
-                phi = rep(0, dat$n),
-                log_sigma_phi = 0)
+                u = rep(0, dat$n),
+                log_sigma_u = 0)
   
   obj <- TMB::MakeADFun(
     data = c(model = "mvn_covariance", dat),
     parameters = param,
-    random = c("beta_0", "phi"),
+    random = c("beta_0", "u"),
     DLL = "arealutils_TMBExports"
   )
   
@@ -265,14 +265,14 @@ ck_tmb <- function(sf, its = 1000){
               D = D)
   
   param <- list(beta_0 = 0,
-                phi = rep(0, dat$n),
-                log_sigma_phi = 0,
+                u = rep(0, dat$n),
+                log_sigma_u = 0,
                 log_l = 0)
   
   obj <- TMB::MakeADFun(
     data = c(model = "centroid", dat),
     parameters = param,
-    random = c("beta_0", "phi"),
+    random = c("beta_0", "u"),
     DLL = "arealutils_TMBExports"
   )
   
@@ -321,14 +321,14 @@ ik_tmb <- function(sf, its = 1000, L = 10, type = "hexagonal", ...){
               S = S)
   
   param <- list(beta_0 = 0,
-                phi = rep(0, dat$n),
-                log_sigma_phi = 0,
+                u = rep(0, dat$n),
+                log_sigma_u = 0,
                 log_l = 0)
   
   obj <- TMB::MakeADFun(
     data = c(model = "integrated", dat),
     parameters = param,
-    random = c("beta_0", "phi"),
+    random = c("beta_0", "u"),
     DLL = "arealutils_TMBExports"
   )
   
