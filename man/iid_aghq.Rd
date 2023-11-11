@@ -4,18 +4,16 @@
 \alias{iid_aghq}
 \title{Fit IID Small Area Estimation model using \code{aghq}.}
 \usage{
-iid_aghq(sf, k = 3, its = 1000)
+iid_aghq(sf, k = 3)
 }
 \arguments{
 \item{sf}{A simple features object with some geometry.}
 
 \item{k}{Number of quadrature points per hyperparameter dimension.}
-
-\item{its}{Number of iterations in outer loop optimisation, passed to \code{nlminb}.}
 }
 \description{
 Random effects are independent and identically distributed.
 }
 \examples{
-iid_aghq(mw, its = 100)
+iid_aghq(mw)
 }

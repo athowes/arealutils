@@ -4,14 +4,12 @@
 \alias{fck_aghq}
 \title{Fit Centroid MVN Small Area Estimation model using \code{aghq}.}
 \usage{
-fck_aghq(sf, k = 3, its = 1000, kernel = matern, ...)
+fck_aghq(sf, k = 3, kernel = matern, ...)
 }
 \arguments{
 \item{sf}{A simple features object with some geometry.}
 
 \item{k}{Number of quadrature points per hyperparameter dimension.}
-
-\item{its}{Number of iterations in outer loop optimisation, passed to \code{nlminb}.}
 
 \item{kernel}{A kernel function, defaults to \code{matern}.}
 
@@ -23,5 +21,5 @@ matrix calculated using \code{\link{centroid_covariance}}. Kernel hyper-paramete
 are fixed.
 }
 \examples{
-fck_aghq(mw, its = 100)
+fck_aghq(mw)
 }

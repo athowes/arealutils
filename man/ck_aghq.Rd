@@ -4,14 +4,12 @@
 \alias{ck_aghq}
 \title{Fit Bayesian Centroid MVN Small Area Estimation model using \code{aghq}.}
 \usage{
-ck_aghq(sf, k = 3, its = 1000)
+ck_aghq(sf, k = 3)
 }
 \arguments{
 \item{sf}{A simple features object with some geometry.}
 
 \item{k}{Number of quadrature points per hyperparameter dimension.}
-
-\item{its}{Number of iterations in outer loop optimisation, passed to \code{nlminb}.}
 }
 \description{
 Random effects have a multivariate Gaussian distribution with covariance
@@ -19,5 +17,5 @@ matrix calculated using \code{\link{centroid_covariance}}. Kernel hyperparameter
 are given a prior and learnt.
 }
 \examples{
-ck_aghq(mw, its = 100)
+ck_aghq(mw)
 }

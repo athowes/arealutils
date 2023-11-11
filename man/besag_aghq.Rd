@@ -4,14 +4,12 @@
 \alias{besag_aghq}
 \title{Fit Besag Small Area Estimation model using \code{aghq}.}
 \usage{
-besag_aghq(sf, k = 3, its = 1000)
+besag_aghq(sf, k = 3)
 }
 \arguments{
 \item{sf}{A simple features object with some geometry.}
 
 \item{k}{Number of quadrature points per hyperparameter dimension.}
-
-\item{its}{Number of iterations in outer loop optimisation, passed to \code{nlminb}.}
 }
 \description{
 Random effects have an improper conditional autoregressive (ICAR)
@@ -20,5 +18,5 @@ the \code{\link{nb_to_precision}} function with input \code{nb},
 the neighbourhood structure of \code{sf}.
 }
 \examples{
-besag_aghq(mw, its = 100)
+besag_aghq(mw)
 }

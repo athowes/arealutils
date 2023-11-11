@@ -4,18 +4,16 @@
 \alias{bym2_aghq}
 \title{Fit BYM2 Small Area Estimation model using \code{aghq}.}
 \usage{
-bym2_aghq(sf, k = 3, its = 1000)
+bym2_aghq(sf, k = 3)
 }
 \arguments{
 \item{sf}{A simple features object with some geometry.}
 
 \item{k}{Number of quadrature points per hyperparameter dimension.}
-
-\item{its}{Number of iterations in outer loop optimisation, passed to \code{nlminb}.}
 }
 \description{
 Fit BYM2 Small Area Estimation model using \code{aghq}.
 }
 \examples{
-bym2_aghq(mw, its = 100)
+bym2_aghq(mw)
 }

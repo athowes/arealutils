@@ -61,7 +61,16 @@
     <loc>/reference/ci.html</loc>
   </url>
   <url>
+    <loc>/reference/ck_aghq.html</loc>
+  </url>
+  <url>
     <loc>/reference/ck_stan.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ck_tmb.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ck_tmbstan.html</loc>
   </url>
   <url>
     <loc>/reference/constant_aghq.html</loc>
@@ -94,16 +103,34 @@
     <loc>/reference/dxbinom.html</loc>
   </url>
   <url>
+    <loc>/reference/fck_aghq.html</loc>
+  </url>
+  <url>
     <loc>/reference/fck_inla.html</loc>
   </url>
   <url>
     <loc>/reference/fck_stan.html</loc>
   </url>
   <url>
+    <loc>/reference/fck_tmb.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fck_tmbstan.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fik_aghq.html</loc>
+  </url>
+  <url>
     <loc>/reference/fik_inla.html</loc>
   </url>
   <url>
     <loc>/reference/fik_stan.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fik_tmb.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fik_tmbstan.html</loc>
   </url>
   <url>
     <loc>/reference/gamma_ADFun.html</loc>
@@ -133,7 +160,16 @@
     <loc>/reference/iid_tmbstan.html</loc>
   </url>
   <url>
+    <loc>/reference/ik_aghq.html</loc>
+  </url>
+  <url>
     <loc>/reference/ik_stan.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ik_tmb.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ik_tmbstan.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>

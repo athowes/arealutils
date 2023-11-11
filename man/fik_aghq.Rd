@@ -4,22 +4,12 @@
 \alias{fik_aghq}
 \title{Fit Integrated MVN Small Area Estimation model using \code{aghq}.}
 \usage{
-fik_aghq(
-  sf,
-  k = 3,
-  its = 1000,
-  L = 10,
-  type = "hexagonal",
-  kernel = matern,
-  ...
-)
+fik_aghq(sf, k = 3, L = 10, type = "hexagonal", kernel = matern, ...)
 }
 \arguments{
 \item{sf}{A simple features object with some geometry.}
 
 \item{k}{Number of quadrature points per hyperparameter dimension.}
-
-\item{its}{Number of iterations in outer loop optimisation, passed to \code{nlminb}.}
 
 \item{L}{The number of Monte Carlo samples to draw from each area.}
 
@@ -34,5 +24,5 @@ Random effects have a multivariate Gaussian distribution with covariance
 matrix calculated using \code{\link{integrated_covariance}}.
 }
 \examples{
-fik_tmb(mw, its = 100)
+fik_tmb(mw)
 }
