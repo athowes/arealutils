@@ -27,12 +27,12 @@ parameters {
   vector<lower=0>[n_mis] y_mis; // Vector of missing responses
   real beta_0; // Intercept
   vector[n] u; // Unscaled spatial effects
-  real<lower=0> sigma_phi; // Standard deviation of spatial effects
+  real<lower=0> sigma_u; // Standard deviation of spatial effects
 }
 
 transformed parameters {
-  vector[n] phi = sqrt(1 / scaling_factor) * u; // Spatial effects
-  vector[n] eta = beta_0 + sigma_phi * phi;
+  vector[n] u = sqrt(1 / scaling_factor) * u; // Spatial effects
+  vector[n] eta = beta_0 + sigma_u * u;
 
   vector[n] y;
   y[ii_obs] = y_obs;
@@ -44,15 +44,15 @@ model {
    y[i] ~ xbinomial_logit(m[i], eta[i]); 
   }
   
-  target += -0.5 * dot_self(u[node1] - u[node2]); // Spatial prior when sigma_phi = 1
+  target += -0.5 * dot_self(u[node1] - u[node2]); // Spatial prior when sigma_u = 1
   sum(u) ~ normal(0, 0.001 * n); // Soft sum-to-zero constraint
   
   beta_0 ~ normal(-2, 1);
-  sigma_phi ~ normal(0, 2.5); // Weakly informative prior
+  sigma_u ~ normal(0, 2.5); // Weakly informative prior
 }
 
 generated quantities {
-  real tau_phi = 1 / sigma_phi^2; // Precision of spatial effects
+  real tau_u = 1 / sigma_u^2; // Precision of spatial effects
   vector[n] rho = inv_logit(eta);
   vector[n] log_lik;
   for (i in 1:n) {

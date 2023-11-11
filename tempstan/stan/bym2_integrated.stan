@@ -25,16 +25,16 @@ data {
 parameters {
   vector<lower=0>[n_mis] y_mis; // Vector of missing responses
   real beta_0; // Intercept
-  vector[n] u; // Structured spatial effects
+  vector[n] w; // Structured spatial effects
   vector[n] v; // Unstructured spatial effects
   real<lower=0, upper=1> pi; // Proportion unstructured vs. structured variance
-  real<lower=0> sigma_phi; // Standard deviation of spatial effects
+  real<lower=0> sigma_u; // Standard deviation of spatial effects
   real<lower=0> l; // Kernel lengthscale
 }
 
 transformed parameters {
-  vector[n] phi = sqrt(1 - pi) * v + sqrt(pi) * u; // Spatial effects
-  vector[n] eta = beta_0 + sigma_phi * phi;
+  vector[n] u = sqrt(1 - phi) * v + sqrt(phi) * w; // Spatial effects
+  vector[n] eta = beta_0 + sigma_u * u;
   
   vector[n] y;
   y[ii_obs] = y_obs;
@@ -47,19 +47,19 @@ model {
   // matrix[n, n] L = cholesky_decompose(K);
   // y ~ multi_normal_cholesky(mu, L);
   l ~ gamma(1, 1);
-  sigma_phi ~ normal(0, 2.5); // Weakly informative prior
+  sigma_u ~ normal(0, 2.5); // Weakly informative prior
   beta_0 ~ normal(-2, 1);
-  pi ~ beta(0.5, 0.5);
+  phi ~ beta(0.5, 0.5);
   v ~ normal(0, 1);
-  u ~ multi_normal(mu, K);
+  w ~ multi_normal(mu, K);
   for(i in 1:n) {
     y[i] ~ xbinomial_logit(m[i], eta[i]); 
   }
 }
 
 generated quantities {
-  real tau_phi = 1 / sigma_phi^2; // Precision of spatial effects
-  vector[n] rho = inv_logit(beta_0 + sigma_phi * phi);
+  real tau_u = 1 / sigma_u^2; // Precision of spatial effects
+  vector[n] rho = inv_logit(beta_0 + sigma_u * u);
   vector[n] log_lik;
   for (i in 1:n) {
     log_lik[i] = xbinomial_logit_lpdf(y[i] | m[i], eta[i]);
