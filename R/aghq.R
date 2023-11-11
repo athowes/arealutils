@@ -6,9 +6,9 @@
 #' @param k Number of quadrature points per hyperparameter dimension.
 #' @param its Number of iterations in outer loop optimisation, passed to `nlminb`.
 #' @examples
-#' constant_aghq(mw, its = 100)
+#' constant_aghq(mw)
 #' @export
-constant_aghq <- function(sf, k = 3, its = 1000){
+constant_aghq <- function(sf, k = 3){
   dat <- list(
     n = nrow(sf),
     y = sf$y,
@@ -22,6 +22,7 @@ constant_aghq <- function(sf, k = 3, its = 1000){
   obj <- TMB::MakeADFun(
     data = c(model = "constant", dat),
     parameters = param,
+    random = c("beta_0"),
     DLL = "arealutils_TMBExports"
   )
   
@@ -43,9 +44,9 @@ constant_aghq <- function(sf, k = 3, its = 1000){
 #'
 #' @inheritParams constant_aghq
 #' @examples
-#' iid_aghq(mw, its = 100)
+#' iid_aghq(mw)
 #' @export
-iid_aghq <- function(sf, k = 3, its = 1000){
+iid_aghq <- function(sf, k = 3){
   dat <- list(
     n = nrow(sf),
     y = sf$y,
@@ -54,22 +55,15 @@ iid_aghq <- function(sf, k = 3, its = 1000){
   
   param <- list(
     beta_0 = 0,
-    phi = rep(0, nrow(sf)),
-    log_sigma_phi = 0
+    u = rep(0, nrow(sf)),
+    log_sigma_u = 0
   )
   
   obj <- TMB::MakeADFun(
     data = c(model = "iid", dat),
     parameters = param,
-    random = c("beta_0", "phi"),
+    random = c("beta_0", "u"),
     DLL = "arealutils_TMBExports"
-  )
-  
-  opt <- nlminb(
-    start = obj$par,
-    objective = obj$fn,
-    gradient = obj$gr,
-    control = list(iter.max = its, trace = 0)
   )
   
   quad <- aghq::marginal_laplace_tmb(ff = obj, k = k, startingvalue = obj$par)
@@ -86,9 +80,9 @@ iid_aghq <- function(sf, k = 3, its = 1000){
 #'
 #' @inheritParams constant_aghq
 #' @examples
-#' besag_aghq(mw, its = 100)
+#' besag_aghq(mw)
 #' @export
-besag_aghq <- function(sf, k = 3, its = 1000){
+besag_aghq <- function(sf, k = 3){
   dat <- list(
     n = nrow(sf),
     y = sf$y,
@@ -97,22 +91,15 @@ besag_aghq <- function(sf, k = 3, its = 1000){
   
   param <- list(
     beta_0 = 0,
-    phi = rep(0, nrow(sf)),
-    log_sigma_phi = 0
+    u = rep(0, nrow(sf)),
+    log_sigma_u = 0
   )
   
   obj <- TMB::MakeADFun(
-    data = c(model = "iid", dat),
+    data = c(model = "besag", dat),
     parameters = param,
-    random = c("beta_0", "phi"),
+    random = c("beta_0", "u"),
     DLL = "arealutils_TMBExports"
-  )
-  
-  opt <- nlminb(
-    start = obj$par,
-    objective = obj$fn,
-    gradient = obj$gr,
-    control = list(iter.max = its, trace = 0)
   )
   
   quad <- aghq::marginal_laplace_tmb(ff = obj, k = k, startingvalue = obj$par)
@@ -124,9 +111,9 @@ besag_aghq <- function(sf, k = 3, its = 1000){
 #'
 #' @inheritParams constant_aghq
 #' @examples
-#' bym2_aghq(mw, its = 100)
+#' bym2_aghq(mw)
 #' @export
-bym2_aghq <- function(sf, k = 3, its = 1000){
+bym2_aghq <- function(sf, k = 3){
   nb <- sf_to_nb(sf)
   Q <- nb_to_precision(nb)
   Q <- as(Q, "dgTMatrix")
@@ -137,15 +124,15 @@ bym2_aghq <- function(sf, k = 3, its = 1000){
               Q = Q)
   
   param <- list(beta_0 = 0,
-                phi = rep(0, dat$n),
                 u = rep(0, dat$n),
-                logit_pi = 0,
-                log_sigma_phi = 0)
+                w = rep(0, dat$n),
+                logit_phi = 0,
+                log_sigma_u = 0)
   
   obj <- TMB::MakeADFun(
     data = c(model = "bym2", dat),
     parameters = param,
-    random = c("beta_0", "phi", "u"),
+    random = c("beta_0", "u", "w"),
     DLL = "arealutils_TMBExports"
   )
   
@@ -163,9 +150,9 @@ bym2_aghq <- function(sf, k = 3, its = 1000){
 #' @inheritParams constant_aghq
 #' @inheritParams centroid_covariance
 #' @examples
-#' fck_aghq(mw, its = 100)
+#' fck_aghq(mw)
 #' @export
-fck_aghq <- function(sf, k = 3, its = 1000, kernel = matern, ...){
+fck_aghq <- function(sf, k = 3, kernel = matern, ...){
   
   cov <- centroid_covariance(sf, kernel, ...)
   cov <- cov / riebler_gv(cov) # Standardise so tau prior is right
@@ -176,20 +163,15 @@ fck_aghq <- function(sf, k = 3, its = 1000, kernel = matern, ...){
               Sigma = cov)
   
   param <- list(beta_0 = 0,
-                phi = rep(0, dat$n),
-                log_sigma_phi = 0)
+                u = rep(0, dat$n),
+                log_sigma_u = 0)
   
   obj <- TMB::MakeADFun(
     data = c(model = "mvn_covariance", dat),
     parameters = param,
-    random = c("beta_0", "phi"),
+    random = c("beta_0", "u"),
     DLL = "arealutils_TMBExports"
   )
-  
-  opt <- nlminb(start = obj$par,
-                objective = obj$fn,
-                gradient = obj$gr,
-                control = list(iter.max = its, trace = 0))
   
   quad <- aghq::marginal_laplace_tmb(ff = obj, k = k, startingvalue = obj$par)
   
@@ -204,9 +186,9 @@ fck_aghq <- function(sf, k = 3, its = 1000, kernel = matern, ...){
 #' @inheritParams constant_aghq
 #' @inheritParams integrated_covariance
 #' @examples
-#' fik_tmb(mw, its = 100)
+#' fik_tmb(mw)
 #' @export
-fik_aghq <- function(sf, k = 3, its = 1000, L = 10, type = "hexagonal", kernel = matern, ...){
+fik_aghq <- function(sf, k = 3, L = 10, type = "hexagonal", kernel = matern, ...){
   
   cov <- integrated_covariance(sf,  L = L, type = type, kernel, ...)
   cov <- cov / riebler_gv(cov) # Standardise so tau prior is right
@@ -217,20 +199,15 @@ fik_aghq <- function(sf, k = 3, its = 1000, L = 10, type = "hexagonal", kernel =
               Sigma = cov)
   
   param <- list(beta_0 = 0,
-                phi = rep(0, dat$n),
-                log_sigma_phi = 0)
+                u = rep(0, dat$n),
+                log_sigma_u = 0)
   
   obj <- TMB::MakeADFun(
     data = c(model = "mvn_covariance", dat),
     parameters = param,
-    random = c("beta_0", "phi"),
+    random = c("beta_0", "u"),
     DLL = "arealutils_TMBExports"
   )
-  
-  opt <- nlminb(start = obj$par,
-                objective = obj$fn,
-                gradient = obj$gr,
-                control = list(iter.max = its, trace = 0))
   
   quad <- aghq::marginal_laplace_tmb(ff = obj, k = k, startingvalue = obj$par)
   
@@ -245,9 +222,9 @@ fik_aghq <- function(sf, k = 3, its = 1000, L = 10, type = "hexagonal", kernel =
 #'
 #' @inheritParams constant_aghq
 #' @examples
-#' ck_aghq(mw, its = 100)
+#' ck_aghq(mw)
 #' @export
-ck_aghq <- function(sf, k = 3, its = 1000){
+ck_aghq <- function(sf, k = 3){
   D <- centroid_distance(sf)
   
   # Parameters of the length-scale prior
@@ -261,21 +238,16 @@ ck_aghq <- function(sf, k = 3, its = 1000){
               D = D)
   
   param <- list(beta_0 = 0,
-                phi = rep(0, dat$n),
-                log_sigma_phi = 0,
+                u = rep(0, dat$n),
+                log_sigma_u = 0,
                 log_l = 0)
   
   obj <- TMB::MakeADFun(
     data = c(model = "centroid", dat),
     parameters = param,
-    random = c("beta_0", "phi"),
+    random = c("beta_0", "u"),
     DLL = "arealutils_TMBExports"
   )
-  
-  opt <- nlminb(start = obj$par,
-                objective = obj$fn,
-                gradient = obj$gr,
-                control = list(iter.max = its, trace = 0))
   
   quad <- aghq::marginal_laplace_tmb(ff = obj, k = k, startingvalue = obj$par)
   
@@ -291,9 +263,9 @@ ck_aghq <- function(sf, k = 3, its = 1000){
 #' @inheritParams constant_aghq
 #' @inheritParams integrated_covariance
 #' @examples
-#' ik_aghq(, its = 100)
+#' ik_aghq(mw)
 #' @export
-ik_aghq <- function(sf, k = 3, its = 1000, L = 10, type = "hexagonal", ...){
+ik_aghq <- function(sf, k = 3, L = 10, type = "hexagonal", ...){
   n <- nrow(sf)
   samples <- sf::st_sample(sf, type = type, exact = TRUE, size = rep(L, n))
   S <- sf::st_distance(samples, samples)
@@ -317,21 +289,16 @@ ik_aghq <- function(sf, k = 3, its = 1000, L = 10, type = "hexagonal", ...){
               S = S)
   
   param <- list(beta_0 = 0,
-                phi = rep(0, dat$n),
-                log_sigma_phi = 0,
+                u = rep(0, dat$n),
+                log_sigma_u = 0,
                 log_l = 0)
   
   obj <- TMB::MakeADFun(
     data = c(model = "integrated", dat),
     parameters = param,
-    random = c("beta_0", "phi"),
+    random = c("beta_0", "u"),
     DLL = "arealutils_TMBExports"
   )
-  
-  opt <- nlminb(start = obj$par,
-                objective = obj$fn,
-                gradient = obj$gr,
-                control = list(iter.max = its, trace = 0))
   
   quad <- aghq::marginal_laplace_tmb(ff = obj, k = k, startingvalue = obj$par)
   
