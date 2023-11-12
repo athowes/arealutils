@@ -118,20 +118,22 @@ besag_inla <- function(sf, verbose = FALSE, cores = parallel::detectCores()){
                        constr = TRUE,
                        hyper = tau_prior)
   
-  fit <- INLA::inla(formula,
-                    family = "xbinomial",
-                    control.family = list(control.link = list(model = "logit")),
-                    control.fixed = beta_prior,
-                    data = dat,
-                    Ntrials = m,
-                    control.predictor = list(compute = TRUE, link = 1),
-                    control.compute = list(
-                      dic = TRUE, waic = TRUE, cpo = TRUE, config = TRUE, 
-                      return.marginals.predictor = TRUE
-                    ),
-                    verbose = verbose,
-                    num.threads = cores,
-                    inla.mode = "experimental")
+  fit <- INLA::inla(
+    formula,
+    family = "xbinomial",
+    control.family = list(control.link = list(model = "logit")),
+    control.fixed = beta_prior,
+    data = dat,
+    Ntrials = m,
+    control.predictor = list(compute = TRUE, link = 1),
+    control.compute = list(
+      dic = TRUE, waic = TRUE, cpo = TRUE, config = TRUE, 
+      return.marginals.predictor = TRUE
+    ),
+    verbose = verbose,
+    num.threads = cores,
+    inla.mode = "experimental"
+  )
   
   return(fit)
 }
@@ -153,36 +155,36 @@ bym2_inla <- function(sf, verbose = FALSE, cores = parallel::detectCores()){
               m = sf$n_obs)
   
   # sigma ~ N(0. 2.5^2); initial in terms of log(tau) so 0 corresponds to tau = 1
-  tau_prior <- list(prec = list(prior = "logtnormal", param = c(0, 1/2.5^2),
-                                initial = 0, fixed = FALSE))
+  tau_prior <- list(prec = list(prior = "logtnormal", param = c(0, 1/2.5^2), initial = 0, fixed = FALSE))
   
   beta_prior <- list(mean.intercept = -2, prec.intercept = 1)
   
-  # pi ~ Beta(0.5, 0.5); inital in terms of logit(pi), so 0 corresponds to pi = 0.5
-  pi_prior <- list(phi = list(prior = "logitbeta", param = c(0.5, 0.5),
-                              initial = 0, fixed = FALSE))
+  # phi ~ Beta(0.5, 0.5); inital in terms of logit(phi), so 0 corresponds to phi = 0.5
+  phi_prior <- list(phi = list(prior = "logitbeta", param = c(0.5, 0.5), initial = 0, fixed = FALSE))
   
   formula <- y ~ 1 + f(id,
                        model = "bym2",
                        graph = nb,
                        scale.model = TRUE,
                        constr = TRUE,
-                       hyper = list(tau_prior, pi_prior))
+                       hyper = list(tau_prior, phi_prior))
   
-  fit <- INLA::inla(formula,
-                    family = "xbinomial",
-                    control.family = list(control.link = list(model = "logit")),
-                    control.fixed = beta_prior,
-                    data = dat,
-                    Ntrials = m,
-                    control.predictor = list(compute = TRUE, link = 1),
-                    control.compute = list(
-                      dic = TRUE, waic = TRUE, cpo = TRUE, config = TRUE, 
-                      return.marginals.predictor = TRUE
-                    ),
-                    verbose = verbose,
-                    num.threads = cores,
-                    inla.mode = "experimental")
+  fit <- INLA::inla(
+    formula,
+    family = "xbinomial",
+    control.family = list(control.link = list(model = "logit")),
+    control.fixed = beta_prior,
+    data = dat,
+    Ntrials = m,
+    control.predictor = list(compute = TRUE, link = 1),
+    control.compute = list(
+      dic = TRUE, waic = TRUE, cpo = TRUE, config = TRUE, 
+      return.marginals.predictor = TRUE
+    ),
+    verbose = verbose,
+    num.threads = cores,
+    inla.mode = "experimental"
+  )
   
   return(fit)
 }
@@ -258,18 +260,20 @@ wicar_inla <- function(sf, R, verbose = FALSE, cores = parallel::detectCores()){
   # Missing scale.model, constr, hyper, ...
   formula <- y ~ 1 + f(id, model = wicar)
   
-  fit <- INLA::inla(formula,
-                    family = "xbinomial",
-                    control.family = list(control.link = list(model = "logit")),
-                    control.fixed = beta_prior,
-                    data = dat,
-                    Ntrials = m,
-                    control.predictor = list(compute = TRUE, link = 1),
-                    control.compute = list(dic = TRUE, waic = TRUE,
-                                           cpo = TRUE, config = TRUE),
-                    verbose = verbose,
-                    num.threads = cores)
-  
+  fit <- INLA::inla(
+    formula,
+    family = "xbinomial",
+    control.family = list(control.link = list(model = "logit")),
+    control.fixed = beta_prior,
+    data = dat,
+    Ntrials = m,
+    control.predictor = list(compute = TRUE, link = 1),
+    control.compute = list(dic = TRUE, waic = TRUE,
+                           cpo = TRUE, config = TRUE),
+    verbose = verbose,
+    num.threads = cores
+  )
+
   return(fit)
 }
 
@@ -304,20 +308,22 @@ fck_inla <- function(sf, verbose = FALSE, kernel = matern, cores = parallel::det
   # See inla.doc("generic0")
   formula <- y ~ 1 + f(id, model = "generic0", Cmatrix = C, hyper = tau_prior)
   
-  fit <- INLA::inla(formula,
-                    family = "xbinomial",
-                    control.family = list(control.link = list(model = "logit")),
-                    control.fixed = beta_prior,
-                    data = dat,
-                    Ntrials = m,
-                    control.predictor = list(compute = TRUE, link = 1),
-                    control.compute = list(
-                      dic = TRUE, waic = TRUE, cpo = TRUE, config = TRUE, 
-                      return.marginals.predictor = TRUE
-                    ),
-                    verbose = verbose,
-                    num.threads = cores,
-                    inla.mode = "experimental")
+  fit <- INLA::inla(
+    formula,
+    family = "xbinomial",
+    control.family = list(control.link = list(model = "logit")),
+    control.fixed = beta_prior,
+    data = dat,
+    Ntrials = m,
+    control.predictor = list(compute = TRUE, link = 1),
+    control.compute = list(
+      dic = TRUE, waic = TRUE, cpo = TRUE, config = TRUE, 
+      return.marginals.predictor = TRUE
+    ),
+    verbose = verbose,
+    num.threads = cores,
+    inla.mode = "experimental"
+  )
   
   return(fit)
 }
@@ -353,20 +359,22 @@ fik_inla <- function(sf, verbose = FALSE, L = 50, kernel = matern, cores = paral
   # See inla.doc("generic0")
   formula <- y ~ 1 + f(id, model = "generic0", Cmatrix = C, hyper = tau_prior)
   
-  fit <- INLA::inla(formula,
-                    family = "xbinomial",
-                    control.family = list(control.link = list(model = "logit")),
-                    data = dat,
-                    control.fixed = beta_prior,
-                    Ntrials = m,
-                    control.predictor = list(compute = TRUE, link = 1),
-                    control.compute = list(
-                      dic = TRUE, waic = TRUE, cpo = TRUE, config = TRUE, 
-                      return.marginals.predictor = TRUE
-                    ),
-                    verbose = verbose,
-                    num.threads = cores,
-                    inla.mode = "experimental")
+  fit <- INLA::inla(
+    formula,
+    family = "xbinomial",
+    control.family = list(control.link = list(model = "logit")),
+    data = dat,
+    control.fixed = beta_prior,
+    Ntrials = m,
+    control.predictor = list(compute = TRUE, link = 1),
+    control.compute = list(
+      dic = TRUE, waic = TRUE, cpo = TRUE, config = TRUE, 
+      return.marginals.predictor = TRUE
+    ),
+    verbose = verbose,
+    num.threads = cores,
+    inla.mode = "experimental"
+  )
   
   return(fit)
 }
