@@ -1,3 +1,5 @@
+#' Can an SPDE version of centroid and integrated kernel models be developed?
+
 #' Specify the spatial structure (e.g., Matérn)
 spatial_model <- inla.spde2.matern(
   param = c(1, 1), # Range and smoothness hyperparameters
