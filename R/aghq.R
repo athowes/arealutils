@@ -82,11 +82,15 @@ iid_aghq <- function(sf, k = 3){
 #' besag_aghq(mw)
 #' @export
 besag_aghq <- function(sf, k = 3){
-  dat <- list(
-    n = nrow(sf),
-    y = sf$y,
-    m = sf$n_obs
-  )
+  nb <- sf_to_nb(sf)
+  Q <- nb_to_precision(nb)
+  Q <- as(Q, "dgTMatrix")
+  
+  dat <- list(n = nrow(sf),
+              y = sf$y,
+              m = sf$n_obs,
+              Q = Q,
+              Qrank = as.integer(Matrix::rankMatrix(Q)))
   
   param <- list(
     beta_0 = 0,

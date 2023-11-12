@@ -19,14 +19,14 @@ Type bym2(objective_function<Type>* obj) {
   PARAMETER(beta_0); // Intercept
   PARAMETER_VECTOR(u); // Spatial effects
   PARAMETER_VECTOR(w); // Spatial component of spatial effects
-  PARAMETER(logit_pi); // 
+  PARAMETER(logit_phi); // 
   PARAMETER(log_sigma_phi); // Log standard deviation of spatial effects
   
   // Transformed parameters block
   Type sigma_phi(exp(log_sigma_phi));
   vector<Type> eta(beta_0 + sigma_phi * u);
   vector<Type> rho(invlogit(eta));
-  Type phi(invlogit(logit_pi));
+  Type phi(invlogit(logit_phi));
   
   // Initialise negative log-likelihood
   Type nll;
@@ -36,7 +36,7 @@ Type bym2(objective_function<Type>* obj) {
   nll -= dnorm(sigma_phi, Type(0), Type(2.5), true) + log_sigma_phi; // Change of variables
   nll -= dnorm(beta_0, Type(-2), Type(1), true); // NB: true puts the likelihood on the log-scale
   
-  nll -= log(phi) +  log(1 - phi);  // Change of variables: logit_pi -> phi
+  nll -= log(phi) +  log(1 - phi);  // Change of variables: logit_phi -> phi
   nll -= dbeta(phi, Type(0.5), Type(0.5), true);
   
   // BYM2
