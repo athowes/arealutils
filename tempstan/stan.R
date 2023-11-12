@@ -116,12 +116,14 @@ besag_stan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores 
                               Q = Q_scaled
     )
     
-    fit <- rstan::sampling(stanmodels$mvn_precision,
-                           data = dat,
-                           warmup = nsim_warm,
-                           iter = nsim_iter,
-                           chains = chains,
-                           cores = cores)
+    fit <- rstan::sampling(
+      stanmodels$mvn_precision,
+      data = dat,
+      warmup = nsim_warm,
+      iter = nsim_iter,
+      chains = chains,
+      cores = cores
+    )
   }
   
   if(method == "morris") {
@@ -137,12 +139,14 @@ besag_stan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores 
                               scaling_factor = scale
     )
     
-    fit <- rstan::sampling(stanmodels$besag_morris,
-                           data = dat,
-                           warmup = nsim_warm,
-                           iter = nsim_iter,
-                           chains = chains,
-                           cores = cores)
+    fit <- rstan::sampling(
+      stanmodels$besag_morris,
+      data = dat,
+      warmup = nsim_warm,
+      iter = nsim_iter,
+      chains = chains,
+      cores = cores
+    )
   }
   
   return(fit)
@@ -187,12 +191,14 @@ bym2_stan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores =
                               Q = Q_scaled
     )
     
-    fit <- rstan::sampling(stanmodels$bym2_precision,
-                           data = dat,
-                           warmup = nsim_warm,
-                           iter = nsim_iter,
-                           chains = chains,
-                           cores = cores)
+    fit <- rstan::sampling(
+      stanmodels$bym2_precision,
+      data = dat,
+      warmup = nsim_warm,
+      iter = nsim_iter,
+      chains = chains,
+      cores = cores
+    )
   }
   
   if(method == "morris") {
@@ -208,12 +214,14 @@ bym2_stan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores =
                               scaling_factor = scale
     )
     
-    fit <- rstan::sampling(stanmodels$bym2_morris,
-                           data = dat,
-                           warmup = nsim_warm,
-                           iter = nsim_iter,
-                           chains = chains,
-                           cores = cores)
+    fit <- rstan::sampling(
+      stanmodels$bym2_morris,
+      data = dat,
+      warmup = nsim_warm,
+      iter = nsim_iter,
+      chains = chains,
+      cores = cores
+    )
   }
   
   return(fit)
@@ -253,20 +261,24 @@ fck_stan <- function(sf, bym2 = FALSE, nsim_warm = 100, nsim_iter = 1000, chains
               mu = rep(0, nrow(sf)))
   
   if(bym2){
-    fit <- rstan::sampling(stanmodels$bym2_covariance,
-                           data = dat,
-                           warmup = nsim_warm,
-                           iter = nsim_iter,
-                           chains = chains,
-                           cores = cores)
+    fit <- rstan::sampling(
+      stanmodels$bym2_covariance,
+      data = dat,
+      warmup = nsim_warm,
+      iter = nsim_iter,
+      chains = chains,
+      cores = cores
+    )
   }
   else{
-    fit <- rstan::sampling(stanmodels$mvn_covariance,
-                           data = dat,
-                           warmup = nsim_warm,
-                           iter = nsim_iter,
-                           chains = chains,
-                           cores = cores)
+    fit <- rstan::sampling(
+      stanmodels$mvn_covariance,
+      data = dat,
+      warmup = nsim_warm,
+      iter = nsim_iter,
+      chains = chains,
+      cores = cores
+    )
   }
   
   return(fit)
@@ -305,20 +317,24 @@ fik_stan <- function(sf, bym2 = FALSE, L = 10, type = "hexagonal", nsim_warm = 1
               mu = rep(0, nrow(sf)))
   
   if(bym2){
-    fit <- rstan::sampling(stanmodels$bym2_covariance,
-                           data = dat,
-                           warmup = nsim_warm,
-                           iter = nsim_iter,
-                           chains = chains,
-                           cores = cores)
+    fit <- rstan::sampling(
+      stanmodels$bym2_centroid,
+      data = dat,
+      warmup = nsim_warm,
+      iter = nsim_iter,
+      chains = chains,
+      cores = cores
+    )
   }
   else{
-    fit <- rstan::sampling(stanmodels$mvn_covariance,
-                           data = dat,
-                           warmup = nsim_warm,
-                           iter = nsim_iter,
-                           chains = chains,
-                           cores = cores)
+    fit <- rstan::sampling(
+      stanmodels$centroid,
+      data = dat,
+      warmup = nsim_warm,
+      iter = nsim_iter,
+      chains = chains,
+      cores = cores
+    )
   }
   
   return(fit)
@@ -361,20 +377,24 @@ ck_stan <- function(sf, bym2 = FALSE, nsim_warm = 100, nsim_iter = 1000, chains 
               D = D)
   
   if(bym2){
-    fit <- rstan::sampling(stanmodels$bym2_centroid,
-                           data = dat,
-                           warmup = nsim_warm,
-                           iter = nsim_iter,
-                           chains = chains,
-                           cores = cores)
+    fit <- rstan::sampling(
+      stanmodels$bym2_centroid,
+      data = dat,
+      warmup = nsim_warm,
+      iter = nsim_iter,
+      chains = chains,
+      cores = cores
+    )
   }
   else{
-    fit <- rstan::sampling(stanmodels$centroid,
-                           data = dat,
-                           warmup = nsim_warm,
-                           iter = nsim_iter,
-                           chains = chains,
-                           cores = cores)
+    fit <- rstan::sampling(
+      stanmodels$centroid,
+      data = dat,
+      warmup = nsim_warm,
+      iter = nsim_iter,
+      chains = chains,
+      cores = cores
+    )
   }
   
   return(fit)
@@ -428,20 +448,24 @@ ik_stan <- function(sf, bym2 = FALSE, L = 10, type = "hexagonal", nsim_warm = 10
               S = S)
   
   if(bym2){
-    fit <- rstan::sampling(stanmodels$bym2_integrated,
-                           data = dat,
-                           warmup = nsim_warm,
-                           iter = nsim_iter,
-                           chains = chains,
-                           cores = cores)
+    fit <- rstan::sampling(
+      stanmodels$bym2_integrated,
+      data = dat,
+      warmup = nsim_warm,
+      iter = nsim_iter,
+      chains = chains,
+      cores = cores
+    )
   }
   else{
-    fit <- rstan::sampling(stanmodels$integrated,
-                           data = dat,
-                           warmup = nsim_warm,
-                           iter = nsim_iter,
-                           chains = chains,
-                           cores = cores)
+    fit <- rstan::sampling(
+      stanmodels$integrated,
+      data = dat,
+      warmup = nsim_warm,
+      iter = nsim_iter,
+      chains = chains,
+      cores = cores
+    )
   }
   
   return(fit)
