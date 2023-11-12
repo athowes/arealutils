@@ -15,13 +15,13 @@ update_naming <- function(df) {
                               "icar" = "Besag",
                               "ik" = "IK"),
     inf_model = recode_factor(inf_model,
-                              "constant_inla" = "Constant",
-                              "iid_inla" = "IID",
-                              "besag_inla" = "Besag",
-                              "bym2_inla" = "BYM2",
-                              "fck_inla" = "FCK",
-                              "ck_stan" = "CK",
-                              "fik_inla" = "FIK",
-                              "ik_stan" = "IK")
+                              "constant_aghq" = "Constant",
+                              "iid__aghq" = "IID",
+                              "besag_aghq" = "Besag",
+                              "bym2_aghq" = "BYM2",
+                              "fck_aghq" = "FCK",
+                              "ck_aghq" = "CK",
+                              "fik_aghq" = "FIK",
+                              "ik_aghq" = "IK")
   )
 }
