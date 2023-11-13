@@ -1,5 +1,5 @@
 Package: arealutils
-Title: Areal Utility Functions
+Title: Utility functions for beyond-borders
 Version: 0.0.1
 Authors@R: 
     person(given = "Adam",

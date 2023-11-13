@@ -4,7 +4,7 @@
 \name{arealutils-package}
 \alias{arealutils}
 \alias{arealutils-package}
-\title{arealutils: Areal Utility Functions}
+\title{arealutils: Utility functions for beyond-borders}
 \description{
 Functions used by areal-comparison analysis.
 }
