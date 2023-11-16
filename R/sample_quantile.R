@@ -4,6 +4,6 @@
 #' @param true_value The underlying true value that is being compared to.
 #' @return The quantile.
 #' @export
-quantile <- function(samples, true_value){
+sample_quantile <- function(samples, true_value){
   min(which(sort(samples) >= true_value)) / length(samples)
 }
