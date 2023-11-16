@@ -40,12 +40,14 @@ Type bym2(objective_function<Type>* obj) {
   nll -= dbeta(phi, Type(0.5), Type(0.5), true);
   
   // BYM2
+  nll -= dnorm(sum(w), Type(0.0), Type(0.001) * w.size(), true); // Soft sum-to-zero constraint
+  
   // Constant terms omitted: -0.5 * (n + rank(Q)) * log(2 * M_PI) + 0.5 * log|Q|
-  nll -= -0.5 * n * (2 * log(sigma_u) + log(1 - phi));  // Normalising constant
-  nll -= -0.5 / (sigma_u * sigma_u * (1 - phi)) * (u * u).sum();
-  nll -= sqrt(phi) / (sigma_u * (1 - phi)) * (u * w).sum();
-  nll -= -0.5 * (w * (Q * w)).sum();
+  nll -= -0.5 * n * (2 * log_sigma_u + log(1 - phi));  // Normalising constant
+  nll -= -0.5 * (u * u).sum() / (sigma_u * sigma_u * (1 - phi));
+  nll -= sqrt(phi) * (u * w).sum() / (sigma_u * (1 - phi));
   nll -= -0.5 * phi / (1 - phi) * (w * w).sum();
+  nll -= -0.5 * (w * (Q * w)).sum();
   
   nll -= dbinom_robust(y, m, eta, true).sum();
   
