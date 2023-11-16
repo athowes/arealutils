@@ -25,13 +25,6 @@ constant_aghq <- function(sf, k = 3){
     DLL = "arealutils_TMBExports"
   )
   
-  opt <- nlminb(
-    start = obj$par,
-    objective = obj$fn,
-    gradient = obj$gr,
-    control = list(iter.max = its, trace = 0)
-  )
-  
   quad <- aghq::marginal_laplace_tmb(ff = obj, k = k, startingvalue = obj$par)
   
   return(quad)
