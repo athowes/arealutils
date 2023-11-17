@@ -16,7 +16,7 @@ update_naming <- function(df) {
                               "ik" = "IK"),
     inf_model = recode_factor(inf_model,
                               "constant_aghq" = "Constant",
-                              "iid__aghq" = "IID",
+                              "iid_aghq" = "IID",
                               "besag_aghq" = "Besag",
                               "bym2_aghq" = "BYM2",
                               "fck_aghq" = "FCK",
