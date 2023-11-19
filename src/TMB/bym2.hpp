@@ -19,8 +19,8 @@ Type bym2(objective_function<Type>* obj) {
   PARAMETER(beta_0); // Intercept
   PARAMETER_VECTOR(u); // Spatial effects
   PARAMETER_VECTOR(w); // Spatial component of spatial effects
-  PARAMETER(logit_phi); // 
   PARAMETER(log_sigma_u); // Log standard deviation of spatial effects
+  PARAMETER(logit_phi); // Logit of BYM2 proportion parameter
   
   // Transformed parameters block
   Type sigma_u(exp(log_sigma_u));
