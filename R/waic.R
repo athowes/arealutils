@@ -25,3 +25,23 @@ waic.stanfit <- function(fit, ...) {
   se <- waic$estimates["waic", "SE"]
   return(list(est = est, se = se)) 
 }
+
+#' #' @rdname waic
+#' #' @export
+#' waic.tmb <- function(fit, ...) {
+#'   log_lik <- NA
+#'   waic <- loo::waic(log_lik)
+#'   est <- waic$estimates["waic", "Estimate"]
+#'   se <- waic$estimates["waic", "SE"]
+#'   return(list(est = est, se = se)) 
+#' }
+
+#' #' @rdname waic
+#' #' @export
+#' waic.aghq <- function(fit, ...) {
+#'   log_lik <- NA
+#'   waic <- loo::waic(log_lik)
+#'   est <- waic$estimates["waic", "Estimate"]
+#'   se <- waic$estimates["waic", "SE"]
+#'   return(list(est = est, se = se)) 
+#' }
