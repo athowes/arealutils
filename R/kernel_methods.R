@@ -74,8 +74,7 @@ integrated_covariance <- function(sf, L = 10, kernel = matern, type = "hexagonal
   sample_index <- sf::st_intersects(sf, samples)
   
   D <- sf::st_distance(samples, samples)
-  D <- as.numeric(D)
-  
+
   # Use the best_average if l is not provided
   if(is.null(l)){
     l <- best_average(D, kernel = kernel, p = 0.01)
