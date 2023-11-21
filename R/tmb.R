@@ -138,8 +138,8 @@ bym2_tmb <- function(sf, its = 1000){
   param <- list(beta_0 = 0,
                 u = rep(0, dat$n),
                 w = rep(0, dat$n),
-                logit_phi = 0,
-                log_sigma_u = 0)
+                log_sigma_u = 0,
+                logit_phi = 0)
   
   obj <- TMB::MakeADFun(
     data = c(model = "bym2", dat),
