@@ -4,6 +4,7 @@
 \alias{dic}
 \alias{dic.inla}
 \alias{dic.stanfit}
+\alias{dic.sdreport}
 \title{Deviance information criterion generic.}
 \usage{
 dic(fit, ...)
@@ -11,6 +12,8 @@ dic(fit, ...)
 \method{dic}{inla}(fit, ...)
 
 \method{dic}{stanfit}(fit, ...)
+
+\method{dic}{sdreport}(fit, ...)
 }
 \arguments{
 \item{fit}{Fitted model.}

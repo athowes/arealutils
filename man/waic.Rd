@@ -4,6 +4,7 @@
 \alias{waic}
 \alias{waic.inla}
 \alias{waic.stanfit}
+\alias{waic.sdreport}
 \title{Watanabe–Akaike (Widely-Applicable) information criterion generic.}
 \usage{
 waic(fit, ...)
@@ -11,6 +12,8 @@ waic(fit, ...)
 \method{waic}{inla}(fit, ...)
 
 \method{waic}{stanfit}(fit, ...)
+
+\method{waic}{sdreport}(fit, ...)
 }
 \arguments{
 \item{fit}{Fitted model.}

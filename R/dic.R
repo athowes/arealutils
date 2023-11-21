@@ -29,19 +29,18 @@ dic.stanfit <- function(fit, ...) {
   return(list(est = est, se = se))
 }
 
-#' #' @rdname dic
-#' #' @export
-#' dic.tmb <- function(fit, ...) {
-#'   pointwise_log_lik <- NA
-#'   log_lik <- rowSums(pointwise_log_lik)
-#'   mean_deviance <- -2 * mean(log_lik)
-#'   deviance_mle <- -2 * max(log_lik)
-#'   # p_dic <- mean_deviance - deviance_mle
-#'   est <- 2 * mean_deviance - deviance_mle
-#'   se <- NA # To find
-#'   return(list(est = est, se = se))
-#' }
-#' 
+#' @rdname dic
+#' @export
+dic.sdreport <- function(fit, ...) {
+  log_lik <- fit$value[which(names(fit$value) == "log_lik")]
+  mean_deviance <- -2 * mean(log_lik)
+  deviance_mle <- -2 * max(log_lik)
+  # p_dic <- mean_deviance - deviance_mle
+  est <- 2 * mean_deviance - deviance_mle
+  se <- NA # To find
+  return(list(est = est, se = se))
+}
+
 #' #' @rdname dic
 #' #' @export
 #' dic.aghq <- function(fit, ...) {
