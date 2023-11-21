@@ -34,6 +34,7 @@ centroid_distance <- function(sf) {
 #' @export
 centroid_covariance <- function(sf, kernel = matern, l = NULL, ...){
   D <- centroid_distance(sf)
+  D <- as.numeric(D)
   n <- nrow(sf)
   
   # Use the best_average if l is not provided
@@ -73,6 +74,7 @@ integrated_covariance <- function(sf, L = 10, kernel = matern, type = "hexagonal
   sample_index <- sf::st_intersects(sf, samples)
   
   D <- sf::st_distance(samples, samples)
+  D <- as.numeric(D)
   
   # Use the best_average if l is not provided
   if(is.null(l)){

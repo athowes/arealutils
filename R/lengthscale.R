@@ -1,7 +1,7 @@
 #' Compute length-scale such that averagely distant points have correlation `p`.
 #'
 #' See Best (1999) "Bayesian models for spatially correlated disease and exposure data".
-#' When the average distance between points is below `1e-8` returns value one.
+#' When the average distance between points is below `1`m returns value one.
 #' 
 #' @param D Matrix of distances between points.
 #' @param kernel A kernel function, defaults to `matern`.
@@ -9,15 +9,16 @@
 #' @param ... Additional arguments to `kernel`.
 #' @export
 best_average <- function(D, kernel = matern, p = 0.01, ...) {
-  m <- mean(D)
+  # as.numeric to avoid units issues
+  m <- as.numeric(mean(D))
   
-  # When points are all the same (such that there is no distance between them) return l = 1
-  if(m < 1e-8) return(1)
+  # When points are all the same (such that there is less than a metre between them) return l = 1
+  if(m < 1) return(1)
   
   l_opt <- stats::uniroot(
     f = function(l) kernel(m, l, ...) - p, 
-    lower = 1e-8,
-    upper = max(D) # Length-scale unlikely to be greater than maximum distance
+    lower = 1,
+    upper = as.numeric(max(D)) # Length-scale unlikely to be greater than maximum distance
   )
   return(l_opt$root)
 }
