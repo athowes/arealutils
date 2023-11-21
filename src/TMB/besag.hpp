@@ -38,8 +38,10 @@ Type besag(objective_function<Type>* obj) {
   nll -=  Qrank * 0.5 * log_sigma_u - 0.5 * sigma_u * (u * (Q * u)).sum();
   nll -= dnorm(u.sum(), Type(0.0), Type(0.001) * n, true); // Soft sum-to-zero constraint
   
-  nll -= dbinom_robust(y, m, eta, true).sum();
+  vector<Type> log_lik(dbinom_robust(y, m, eta, true));
+  nll -= log_lik.sum();
   
+  ADREPORT(log_lik);
   ADREPORT(rho); // Would like to see posterior prevalence estimates
   
   return(nll);

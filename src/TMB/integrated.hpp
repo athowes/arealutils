@@ -52,8 +52,10 @@ Type integrated(objective_function<Type>* obj) {
   using namespace density;
   nll += MVNORM(K)(u_unit); // On the negative log-scale already
   
-  nll -= dbinom_robust(y, m, eta, true).sum();
+  vector<Type> log_lik(dbinom_robust(y, m, eta, true));
+  nll -= log_lik.sum();
   
+  ADREPORT(log_lik);
   ADREPORT(rho); // Would like to see posterior prevalence estimates
   
   return(nll);

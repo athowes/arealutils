@@ -49,8 +49,10 @@ Type bym2(objective_function<Type>* obj) {
   nll -= -0.5 * phi / (1 - phi) * (w * w).sum();
   nll -= -0.5 * (w * (Q * w)).sum();
   
-  nll -= dbinom_robust(y, m, eta, true).sum();
+  vector<Type> log_lik(dbinom_robust(y, m, eta, true));
+  nll -= log_lik.sum();
   
+  ADREPORT(log_lik);
   ADREPORT(rho); // Would like to see posterior prevalence estimates
   
   return(nll);
