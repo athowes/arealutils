@@ -23,7 +23,7 @@ Type besag(objective_function<Type>* obj) {
   
   // Transformed parameters block
   Type sigma_u(exp(log_sigma_u));
-  vector<Type> eta(beta_0 + sigma_u * u);
+  vector<Type> eta(beta_0 + u);
   vector<Type> rho(invlogit(eta));
   
   // Initialise negative log-likelihood
@@ -35,7 +35,7 @@ Type besag(objective_function<Type>* obj) {
   nll -= dnorm(beta_0, Type(-2), Type(1), true); // NB: true puts the likelihood on the log-scale
   
   // Besag
-  nll -=  Qrank * 0.5 * log(sigma_u) - 0.5 * sigma_u * (u * (Q * u)).sum();
+  nll -=  Qrank * 0.5 * log_sigma_u - 0.5 * sigma_u * (u * (Q * u)).sum();
   nll -= dnorm(u.sum(), Type(0.0), Type(0.001) * n, true); // Soft sum-to-zero constraint
   
   nll -= dbinom_robust(y, m, eta, true).sum();

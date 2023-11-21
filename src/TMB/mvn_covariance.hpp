@@ -22,7 +22,8 @@ Type mvn_covariance(objective_function<Type>* obj) {
   
   // Transformed parameters block
   Type sigma_u(exp(log_sigma_u));
-  vector<Type> eta(beta_0 + sigma_u * u);
+  vector<Type> eta(beta_0 + u);
+  vector<Type> u_unit(u / sigma_u);
   vector<Type> rho(invlogit(eta));
   
   // Model
@@ -33,7 +34,7 @@ Type mvn_covariance(objective_function<Type>* obj) {
   nll -= dnorm(beta_0, Type(-2), Type(1), true); // NB: true puts the likelihood on the log-scale
   
   using namespace density;
-  nll += MVNORM(Sigma)(u); // On the negative log-scale already
+  nll += MVNORM(Sigma)(u_unit); // On the negative log-scale already
 
   nll -= dbinom_robust(y, m, eta, true).sum();
   

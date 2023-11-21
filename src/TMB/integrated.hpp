@@ -34,7 +34,8 @@ Type integrated(objective_function<Type>* obj) {
   // Transformed parameters block
   Type sigma_u(exp(log_sigma_u));
   Type l(exp(log_l));
-  vector<Type> eta(beta_0 + sigma_u * u);
+  vector<Type> eta(beta_0 + u);
+  vector<Type> u_unit(u / sigma_u);
   vector<Type> rho(invlogit(eta));
   matrix<Type> K(cov_sample_average(S, l, n, start_index, sample_lengths, total_samples));
   
@@ -49,7 +50,7 @@ Type integrated(objective_function<Type>* obj) {
   nll -= log_l; // Change of variables
   
   using namespace density;
-  nll += MVNORM(K)(u); // On the negative log-scale already
+  nll += MVNORM(K)(u_unit); // On the negative log-scale already
   
   nll -= dbinom_robust(y, m, eta, true).sum();
   
