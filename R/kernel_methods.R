@@ -68,20 +68,23 @@ integrated_covariance <- function(sf, L = 10, kernel = matern, type = "hexagonal
   # "OGR: Corrupt data Error in CPL_gdal_dimension(st_geometry(x), NA_if_empty) : OGR error"
   # r-spatial/lwgeom/issues/6
   # r-spatial/sf/issues/1443
-  sf::st_crs(samples) <- NA
-  
+
   # Exact = TRUE is not exact
   sample_index <- sf::st_intersects(sf, samples)
   
   D <- sf::st_distance(samples, samples)
-
+  
+  # Don't want D to have units attached to it
+  D_values <- as.numeric(D)
+  D <- matrix(D_values, nrow = nrow(D))
+  
   # Use the best_average if l is not provided
   if(is.null(l)){
     l <- best_average(D, kernel = kernel, p = 0.01)
   }
   
   kD <- kernel(D, l = l, ...)
-  
+
   K <- matrix(nrow = n, ncol = n)
   # Diagonal entries
   for(i in 1:(n - 1)) {
