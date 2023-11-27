@@ -20,7 +20,7 @@ Type iid(objective_function<Type>* obj) {
   
   // Transformed parameters block
   Type sigma_u(exp(log_sigma_u));
-  vector<Type> eta(beta_0 + sigma_u * u);
+  vector<Type> eta(beta_0 + u);
   vector<Type> rho(invlogit(eta));
   
   // Model
