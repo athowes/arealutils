@@ -12,6 +12,7 @@ Type iid(objective_function<Type>* obj) {
   DATA_INTEGER(n); // Number of regions
   DATA_VECTOR(y); // Vector of responses
   DATA_VECTOR(m); // Vector of sample sizes
+  DATA_IVECTOR(ii_mis); // Indicies of missing observations (zero-indexed)
   
   // Parameter block
   PARAMETER(beta_0); // Intercept
@@ -32,6 +33,11 @@ Type iid(objective_function<Type>* obj) {
   nll -= dnorm(u, Type(0), sigma_u, true).sum();
   
   vector<Type> log_lik(dbinom_robust(y, m, eta, true));
+  
+  for (int i = 0; i < ii_mis.size(); i++) {
+    log_lik[i] = Type(0);
+  }
+  
   nll -= log_lik.sum();
   
   ADREPORT(log_lik);
