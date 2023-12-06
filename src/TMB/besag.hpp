@@ -12,6 +12,7 @@ Type besag(objective_function<Type>* obj) {
   DATA_INTEGER(n); // Number of regions
   DATA_VECTOR(y); // Vector of responses
   DATA_VECTOR(m); // Vector of sample sizes
+  DATA_IVECTOR(ii_mis); // Index of missing observations (zero-indexed)
   
   DATA_SPARSE_MATRIX(Q); // Structure matrix for ICAR
   DATA_SCALAR(Qrank);
@@ -39,9 +40,18 @@ Type besag(objective_function<Type>* obj) {
   nll -= dnorm(u.sum(), Type(0.0), Type(0.001) * n, true); // Soft sum-to-zero constraint
   
   vector<Type> log_lik(dbinom_robust(y, m, eta, true));
+  
+  // ADREPORT before zeroing some of the log_lik
+  ADREPORT(log_lik);
+  
+  if(ii_mis.size() > 0) {
+    for (int i = 0; i < ii_mis.size(); i++) {
+      log_lik[ii_mis[i]] = Type(0);
+    }
+  }
+  
   nll -= log_lik.sum();
   
-  ADREPORT(log_lik);
   ADREPORT(rho); // Would like to see posterior prevalence estimates
   
   return(nll);

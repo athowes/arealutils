@@ -4,12 +4,14 @@
 \alias{ck_aghq}
 \title{Fit Bayesian Centroid MVN Small Area Estimation model using \code{aghq}.}
 \usage{
-ck_aghq(sf, k = 3)
+ck_aghq(sf, k = 3, ii_mis = NULL)
 }
 \arguments{
 \item{sf}{A simple features object with some geometry.}
 
 \item{k}{Number of quadrature points per hyperparameter dimension.}
+
+\item{ii_mis}{The (zero-indexed) indices of the observations held-out.}
 }
 \description{
 Random effects have a multivariate Gaussian distribution with covariance

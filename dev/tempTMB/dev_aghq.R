@@ -11,3 +11,7 @@ system.time({fck_aghq(mw)})
 system.time({fik_aghq(mw)})
 system.time({ck_aghq(mw)})
 system.time({ik_aghq(mw)})
+
+#' Test that the cross-validation enabling code works
+cv_test <- iid_aghq(mw, ii_mis = 0)
+summary(cv_test)

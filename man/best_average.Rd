@@ -17,5 +17,5 @@ best_average(D, kernel = matern, p = 0.01, ...)
 }
 \description{
 See Best (1999) "Bayesian models for spatially correlated disease and exposure data".
-When the average distance between points is below \code{1}m returns value one.
+When the average distance between points is sufficiently small, returns value one.
 }

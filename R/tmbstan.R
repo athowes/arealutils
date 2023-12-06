@@ -6,15 +6,17 @@
 #' @param nsim_warm Number of warmup samples, passed to `rstan`.
 #' @param nsim_iter Number of samples, passed to `rstan`.
 #' @param chains Number of chains, each of which gets `nsim_warm + nsim_iter` samples, passed to `rstan`.
-#' @param cores Number of cores, passed to `rstan`, defaults to `parallel::detectCores()`
+#' @param cores Number of cores, passed to `rstan`, defaults to `parallel::detectCores()`.
+#' @param ii_mis The (zero-indexed) indices of the observations held-out.
 #' @examples
 #' constant_tmbstan(mw, nsim_warm = 0, nsim_iter = 100, cores = 2)
 #' @export
-constant_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores()){
+constant_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores(), ii_mis = NULL){
   dat <- list(
     n = nrow(sf),
     y = sf$y,
-    m = sf$n_obs
+    m = sf$n_obs,
+    ii_mis = ii_mis
   )
   
   param <- list(
@@ -46,11 +48,12 @@ constant_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, 
 #' @examples
 #' constant_tmbstan(mw, nsim_warm = 0, nsim_iter = 100, cores = 2)
 #' @export
-iid_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores()){
+iid_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores(), ii_mis = NULL){
   dat <- list(
     n = nrow(sf),
     y = sf$y,
-    m = sf$n_obs
+    m = sf$n_obs,
+    ii_mis = ii_mis
   )
   
   param <- list(
@@ -88,7 +91,7 @@ iid_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores
 #' @examples
 #' besag_tmbstan(mw, nsim_warm = 0, nsim_iter = 100, cores = 2)
 #' @export
-besag_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores()){
+besag_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores(), ii_mis = NULL){
   nb <- sf_to_nb(sf)
   Q <- nb_to_precision(nb)
   Q <- as(Q, "dgTMatrix")
@@ -96,6 +99,7 @@ besag_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cor
   dat <- list(n = nrow(sf),
               y = sf$y,
               m = sf$n_obs,
+              ii_mis = ii_mis,
               Q = Q,
               Qrank = as.integer(Matrix::rankMatrix(Q)))
   
@@ -127,7 +131,7 @@ besag_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cor
 #' @examples
 #' bym2_tmbstan(mw, nsim_warm = 0, nsim_iter = 100, cores = 2)
 #' @export
-bym2_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores()){
+bym2_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores(), ii_mis = NULL){
   nb <- sf_to_nb(sf)
   Q <- nb_to_precision(nb)
   Q <- as(Q, "dgTMatrix")
@@ -135,6 +139,7 @@ bym2_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, core
   dat <- list(n = nrow(sf),
               y = sf$y,
               m = sf$n_obs,
+              ii_mis = ii_mis,
               Q = Q)
   
   param <- list(beta_0 = 0,
@@ -172,7 +177,7 @@ bym2_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, core
 #' @examples
 #' fck_tmbstan(mw, nsim_warm = 0, nsim_iter = 100, cores = 2)
 #' @export
-fck_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores(), kernel = matern, ...){
+fck_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores(), kernel = matern, ii_mis = NULL, ...){
   
   cov <- centroid_covariance(sf, kernel, ...)
   cov <- cov / riebler_gv(cov) # Standardise so tau prior is right
@@ -180,6 +185,7 @@ fck_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores
   dat <- list(n = nrow(sf),
               y = sf$y,
               m = sf$n_obs,
+              ii_mis = ii_mis,
               Sigma = cov)
   
   param <- list(beta_0 = 0,
@@ -214,7 +220,7 @@ fck_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores
 #' @examples
 #' fik_tmbstan(mw, nsim_warm = 0, nsim_iter = 100, cores = 2)
 #' @export
-fik_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores(), L = 10, type = "hexagonal", kernel = matern, ...){
+fik_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores(), L = 10, type = "hexagonal", kernel = matern, ii_mis = NULL, ...){
   
   cov <- integrated_covariance(sf,  L = L, type = type, kernel, ...)
   cov <- cov / riebler_gv(cov) # Standardise so tau prior is right
@@ -222,6 +228,7 @@ fik_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores
   dat <- list(n = nrow(sf),
               y = sf$y,
               m = sf$n_obs,
+              ii_mis = ii_mis,
               Sigma = cov)
   
   param <- list(beta_0 = 0,
@@ -256,7 +263,7 @@ fik_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores
 #' @examples
 #' ck_tmbstan(mw, nsim_warm = 0, nsim_iter = 100, cores = 2)
 #' @export
-ck_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores()){
+ck_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores(), ii_mis = NULL){
   D <- centroid_distance(sf)
   
   # Parameters of the length-scale prior
@@ -265,6 +272,7 @@ ck_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores 
   dat <- list(n = nrow(sf),
               y = sf$y,
               m = sf$n_obs,
+              ii_mis = ii_mis,
               a = param$a,
               b = param$b,
               D = D)
@@ -303,7 +311,7 @@ ck_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores 
 #' @examples
 #' ik_tmbstan(mw, nsim_warm = 0, nsim_iter = 100, cores = 2)
 #' @export
-ik_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores(), L = 10, type = "hexagonal", ...){
+ik_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores(), L = 10, type = "hexagonal", ii_mis = NULL, ...){
   n <- nrow(sf)
   samples <- sf::st_sample(sf, type = type, exact = TRUE, size = rep(L, n))
   S <- sf::st_distance(samples, samples)
@@ -319,6 +327,7 @@ ik_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores 
   dat <- list(n = nrow(sf),
               y = sf$y,
               m = sf$n_obs,
+              ii_mis = ii_mis,
               a = param$a,
               b = param$b,
               sample_lengths = sample_lengths,

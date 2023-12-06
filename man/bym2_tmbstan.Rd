@@ -9,7 +9,8 @@ bym2_tmbstan(
   nsim_warm = 100,
   nsim_iter = 1000,
   chains = 4,
-  cores = parallel::detectCores()
+  cores = parallel::detectCores(),
+  ii_mis = NULL
 )
 }
 \arguments{
@@ -21,7 +22,9 @@ bym2_tmbstan(
 
 \item{chains}{Number of chains, each of which gets \code{nsim_warm + nsim_iter} samples, passed to \code{rstan}.}
 
-\item{cores}{Number of cores, passed to \code{rstan}, defaults to \code{parallel::detectCores()}}
+\item{cores}{Number of cores, passed to \code{rstan}, defaults to \code{parallel::detectCores()}.}
+
+\item{ii_mis}{The (zero-indexed) indices of the observations held-out.}
 }
 \description{
 Fit BYM2 Small Area Estimation model using \code{tmbstan}.

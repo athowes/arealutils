@@ -4,12 +4,14 @@
 \alias{iid_tmb}
 \title{Fit IID Small Area Estimation model using \code{TMB}.}
 \usage{
-iid_tmb(sf, its = 1000)
+iid_tmb(sf, its = 1000, ii_mis = NULL)
 }
 \arguments{
 \item{sf}{A simple features object with some geometry.}
 
 \item{its}{Number of iterations in outer loop optimisation, passed to \code{nlminb}.}
+
+\item{ii_mis}{The (zero-indexed) indices of the observations held-out.}
 }
 \description{
 Random effects are independent and identically distributed.

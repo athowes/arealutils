@@ -53,7 +53,8 @@ are given a prior and learnt.</p>
   nsim_warm <span class="op">=</span> <span class="fl">100</span>,
   nsim_iter <span class="op">=</span> <span class="fl">1000</span>,
   chains <span class="op">=</span> <span class="fl">4</span>,
-  cores <span class="op">=</span> <span class="fu">parallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html" class="external-link">detectCores</a></span><span class="op">(</span><span class="op">)</span>
+  cores <span class="op">=</span> <span class="fu">parallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html" class="external-link">detectCores</a></span><span class="op">(</span><span class="op">)</span>,
+  ii_mis <span class="op">=</span> <span class="cn">NULL</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -76,7 +77,11 @@ are given a prior and learnt.</p>
 
 
 <dt>cores</dt>
-<dd><p>Number of cores, passed to <code>rstan</code>, defaults to <code><a href="https://rdrr.io/r/parallel/detectCores.html" class="external-link">parallel::detectCores()</a></code></p></dd>
+<dd><p>Number of cores, passed to <code>rstan</code>, defaults to <code><a href="https://rdrr.io/r/parallel/detectCores.html" class="external-link">parallel::detectCores()</a></code>.</p></dd>
+
+
+<dt>ii_mis</dt>
+<dd><p>The (zero-indexed) indices of the observations held-out.</p></dd>
 
 </dl></div>
 

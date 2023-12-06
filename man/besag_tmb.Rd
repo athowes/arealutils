@@ -4,12 +4,14 @@
 \alias{besag_tmb}
 \title{Fit Besag Small Area Estimation model using \code{TMB}.}
 \usage{
-besag_tmb(sf, its = 1000)
+besag_tmb(sf, its = 1000, ii_mis = NULL)
 }
 \arguments{
 \item{sf}{A simple features object with some geometry.}
 
 \item{its}{Number of iterations in outer loop optimisation, passed to \code{nlminb}.}
+
+\item{ii_mis}{The (zero-indexed) indices of the observations held-out.}
 }
 \description{
 Random effects have an improper conditional autoregressive (ICAR)

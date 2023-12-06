@@ -12,6 +12,7 @@ ik_tmbstan(
   cores = parallel::detectCores(),
   L = 10,
   type = "hexagonal",
+  ii_mis = NULL,
   ...
 )
 }
@@ -24,11 +25,13 @@ ik_tmbstan(
 
 \item{chains}{Number of chains, each of which gets \code{nsim_warm + nsim_iter} samples, passed to \code{rstan}.}
 
-\item{cores}{Number of cores, passed to \code{rstan}, defaults to \code{parallel::detectCores()}}
+\item{cores}{Number of cores, passed to \code{rstan}, defaults to \code{parallel::detectCores()}.}
 
 \item{L}{The number of Monte Carlo samples to draw from each area.}
 
 \item{type}{The \code{type} argument of \code{sf::st_sample}, defaults to \code{"hexagonal"}}
+
+\item{ii_mis}{The (zero-indexed) indices of the observations held-out.}
 
 \item{...}{Additional arguments to \code{kernel}.}
 }

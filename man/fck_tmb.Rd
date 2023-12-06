@@ -4,7 +4,7 @@
 \alias{fck_tmb}
 \title{Fit Centroid MVN Small Area Estimation model using \code{TMB}.}
 \usage{
-fck_tmb(sf, its = 1000, kernel = matern, ...)
+fck_tmb(sf, its = 1000, kernel = matern, ii_mis = NULL, ...)
 }
 \arguments{
 \item{sf}{A simple features object with some geometry.}
@@ -12,6 +12,8 @@ fck_tmb(sf, its = 1000, kernel = matern, ...)
 \item{its}{Number of iterations in outer loop optimisation, passed to \code{nlminb}.}
 
 \item{kernel}{A kernel function, defaults to \code{matern}.}
+
+\item{ii_mis}{The (zero-indexed) indices of the observations held-out.}
 
 \item{...}{Additional arguments to \code{kernel}.}
 }

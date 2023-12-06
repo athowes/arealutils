@@ -12,7 +12,7 @@ Type iid(objective_function<Type>* obj) {
   DATA_INTEGER(n); // Number of regions
   DATA_VECTOR(y); // Vector of responses
   DATA_VECTOR(m); // Vector of sample sizes
-  DATA_IVECTOR(ii_mis); // Indicies of missing observations (zero-indexed)
+  DATA_IVECTOR(ii_mis); // Index of missing observations (zero-indexed)
   
   // Parameter block
   PARAMETER(beta_0); // Intercept

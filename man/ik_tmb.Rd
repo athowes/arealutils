@@ -4,7 +4,7 @@
 \alias{ik_tmb}
 \title{Fit Bayesian Integrated MVN Small Area Estimation model using \code{TMB}.}
 \usage{
-ik_tmb(sf, its = 1000, L = 10, type = "hexagonal", ...)
+ik_tmb(sf, its = 1000, L = 10, type = "hexagonal", ii_mis = NULL, ...)
 }
 \arguments{
 \item{sf}{A simple features object with some geometry.}
@@ -14,6 +14,8 @@ ik_tmb(sf, its = 1000, L = 10, type = "hexagonal", ...)
 \item{L}{The number of Monte Carlo samples to draw from each area.}
 
 \item{type}{The \code{type} argument of \code{sf::st_sample}, defaults to \code{"hexagonal"}}
+
+\item{ii_mis}{The (zero-indexed) indices of the observations held-out.}
 
 \item{...}{Additional arguments to \code{kernel}.}
 }

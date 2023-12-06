@@ -4,14 +4,16 @@
 #'
 #' @param sf A simple features object with some geometry.
 #' @param its Number of iterations in outer loop optimisation, passed to `nlminb`.
+#' @param ii_mis The (zero-indexed) indices of the observations held-out.
 #' @examples
 #' constant_tmb(mw, its = 100)
 #' @export
-constant_tmb <- function(sf, its = 1000){
+constant_tmb <- function(sf, its = 1000, ii_mis = NULL){
   dat <- list(
     n = nrow(sf),
     y = sf$y,
-    m = sf$n_obs
+    m = sf$n_obs,
+    ii_mis = ii_mis
   )
   
   param <- list(
@@ -44,11 +46,12 @@ constant_tmb <- function(sf, its = 1000){
 #' @examples
 #' iid_tmb(mw, its = 100)
 #' @export
-iid_tmb <- function(sf, its = 1000){
+iid_tmb <- function(sf, its = 1000, ii_mis = NULL){
   dat <- list(
     n = nrow(sf),
     y = sf$y,
-    m = sf$n_obs
+    m = sf$n_obs,
+    ii_mis = ii_mis
   )
   
   param <- list(
@@ -87,7 +90,7 @@ iid_tmb <- function(sf, its = 1000){
 #' @examples
 #' besag_tmb(mw, its = 100)
 #' @export
-besag_tmb <- function(sf, its = 1000){
+besag_tmb <- function(sf, its = 1000, ii_mis = NULL){
   nb <- sf_to_nb(sf)
   Q <- nb_to_precision(nb)
   Q <- as(Q, "dgTMatrix")
@@ -95,6 +98,7 @@ besag_tmb <- function(sf, its = 1000){
   dat <- list(n = nrow(sf),
               y = sf$y,
               m = sf$n_obs,
+              ii_mis = ii_mis,
               Q = Q,
               Qrank = as.integer(Matrix::rankMatrix(Q)))
   
@@ -125,7 +129,7 @@ besag_tmb <- function(sf, its = 1000){
 #' @examples
 #' bym2_tmb(mw, its = 100)
 #' @export
-bym2_tmb <- function(sf, its = 1000){
+bym2_tmb <- function(sf, its = 1000, ii_mis = NULL){
   nb <- sf_to_nb(sf)
   Q <- nb_to_precision(nb)
   Q <- as(Q, "dgTMatrix")
@@ -133,6 +137,7 @@ bym2_tmb <- function(sf, its = 1000){
   dat <- list(n = nrow(sf),
               y = sf$y,
               m = sf$n_obs,
+              ii_mis = ii_mis,
               Q = Q)
   
   param <- list(beta_0 = 0,
@@ -169,7 +174,7 @@ bym2_tmb <- function(sf, its = 1000){
 #' @examples
 #' fck_tmb(mw, its = 100)
 #' @export
-fck_tmb <- function(sf, its = 1000, kernel = matern, ...){
+fck_tmb <- function(sf, its = 1000, kernel = matern, ii_mis = NULL, ...){
   
   cov <- centroid_covariance(sf, kernel, ...)
   cov <- cov / riebler_gv(cov) # Standardise so tau prior is right
@@ -177,6 +182,7 @@ fck_tmb <- function(sf, its = 1000, kernel = matern, ...){
   dat <- list(n = nrow(sf),
               y = sf$y,
               m = sf$n_obs,
+              ii_mis = ii_mis,
               Sigma = cov)
   
   param <- list(beta_0 = 0,
@@ -210,7 +216,7 @@ fck_tmb <- function(sf, its = 1000, kernel = matern, ...){
 #' @examples
 #' fik_tmb(mw, its = 100)
 #' @export
-fik_tmb <- function(sf, its = 1000, L = 10, type = "hexagonal", kernel = matern, ...){
+fik_tmb <- function(sf, its = 1000, L = 10, type = "hexagonal", kernel = matern, ii_mis = NULL, ...){
   
   cov <- integrated_covariance(sf,  L = L, type = type, kernel, ...)
   cov <- cov / riebler_gv(cov) # Standardise so tau prior is right
@@ -218,6 +224,7 @@ fik_tmb <- function(sf, its = 1000, L = 10, type = "hexagonal", kernel = matern,
   dat <- list(n = nrow(sf),
               y = sf$y,
               m = sf$n_obs,
+              ii_mis = ii_mis,
               Sigma = cov)
   
   param <- list(beta_0 = 0,
@@ -251,7 +258,7 @@ fik_tmb <- function(sf, its = 1000, L = 10, type = "hexagonal", kernel = matern,
 #' @examples
 #' ck_tmb(mw, nsim_warm = 0, nsim_iter = 100, cores = 2)
 #' @export
-ck_tmb <- function(sf, its = 1000){
+ck_tmb <- function(sf, its = 1000, ii_mis = NULL){
   D <- centroid_distance(sf)
   
   # Parameters of the length-scale prior
@@ -260,6 +267,7 @@ ck_tmb <- function(sf, its = 1000){
   dat <- list(n = nrow(sf),
               y = sf$y,
               m = sf$n_obs,
+              ii_mis = ii_mis,
               a = param$a,
               b = param$b,
               D = D)
@@ -297,7 +305,7 @@ ck_tmb <- function(sf, its = 1000){
 #' @examples
 #' ik_tmb(mw, nsim_warm = 0, nsim_iter = 100, cores = 2)
 #' @export
-ik_tmb <- function(sf, its = 1000, L = 10, type = "hexagonal", ...){
+ik_tmb <- function(sf, its = 1000, L = 10, type = "hexagonal", ii_mis = NULL, ...){
   n <- nrow(sf)
   samples <- sf::st_sample(sf, type = type, exact = TRUE, size = rep(L, n))
   S <- sf::st_distance(samples, samples)
@@ -313,6 +321,7 @@ ik_tmb <- function(sf, its = 1000, L = 10, type = "hexagonal", ...){
   dat <- list(n = nrow(sf),
               y = sf$y,
               m = sf$n_obs,
+              ii_mis = ii_mis,
               a = param$a,
               b = param$b,
               sample_lengths = sample_lengths,

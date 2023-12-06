@@ -4,7 +4,15 @@
 \alias{fik_tmb}
 \title{Fit Integrated MVN Small Area Estimation model using \code{TMB}.}
 \usage{
-fik_tmb(sf, its = 1000, L = 10, type = "hexagonal", kernel = matern, ...)
+fik_tmb(
+  sf,
+  its = 1000,
+  L = 10,
+  type = "hexagonal",
+  kernel = matern,
+  ii_mis = NULL,
+  ...
+)
 }
 \arguments{
 \item{sf}{A simple features object with some geometry.}
@@ -16,6 +24,8 @@ fik_tmb(sf, its = 1000, L = 10, type = "hexagonal", kernel = matern, ...)
 \item{type}{The \code{type} argument of \code{sf::st_sample}, defaults to \code{"hexagonal"}}
 
 \item{kernel}{A kernel function, defaults to \code{matern}.}
+
+\item{ii_mis}{The (zero-indexed) indices of the observations held-out.}
 
 \item{...}{Additional arguments to \code{kernel}.}
 }
