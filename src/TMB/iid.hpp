@@ -34,8 +34,10 @@ Type iid(objective_function<Type>* obj) {
   
   vector<Type> log_lik(dbinom_robust(y, m, eta, true));
   
-  for (int i = 0; i < ii_mis.size(); i++) {
-    log_lik[i] = Type(0);
+  if(ii_mis.size() > 0) {
+    for (int i = 0; i < ii_mis.size(); i++) {
+      log_lik[i] = Type(0);
+    }
   }
   
   nll -= log_lik.sum();
