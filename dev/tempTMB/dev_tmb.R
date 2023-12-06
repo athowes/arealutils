@@ -11,3 +11,7 @@ fck_tmb(mw, its = 1000)
 fik_tmb(mw, its = 1000)
 system.time({ck_tmb(mw, its = 1000)})
 system.time({ik_tmb(mw, its = 1000)})
+
+#' Test that the cross-validation enabling code works
+cv_test <- iid_tmb(mw, its = 1000, ii_mis = 0)
+summary(cv_test)
