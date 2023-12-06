@@ -36,7 +36,7 @@ Type iid(objective_function<Type>* obj) {
   
   if(ii_mis.size() > 0) {
     for (int i = 0; i < ii_mis.size(); i++) {
-      log_lik[i] = Type(0);
+      log_lik[ii_mis[i]] = Type(0);
     }
   }
   
