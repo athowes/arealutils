@@ -4,16 +4,17 @@
 #'
 #' @param sf A simple features object with some geometry.
 #' @param k Number of quadrature points per hyperparameter dimension.
-#' @param ii_mis The (zero-indexed) indices of the observations held-out. 
+#' @param ii The (zero-indexed) indices of the observations held-out. 
 #' @examples
 #' constant_aghq(mw)
 #' @export
-constant_aghq <- function(sf, k = 3, ii_mis = NULL){
+constant_aghq <- function(sf, k = 3, ii = NULL){
   dat <- list(
     n = nrow(sf),
     y = sf$y,
     m = sf$n_obs,
-    ii_mis = ii_mis
+    left_out = !is.null(ii),
+    ii = ifelse(!is.null(ii), ii, 0)
   )
   
   param <- list(
@@ -40,12 +41,13 @@ constant_aghq <- function(sf, k = 3, ii_mis = NULL){
 #' @examples
 #' iid_aghq(mw)
 #' @export
-iid_aghq <- function(sf, k = 3, ii_mis = NULL){
+iid_aghq <- function(sf, k = 3, ii = NULL){
   dat <- list(
     n = nrow(sf),
     y = sf$y,
     m = sf$n_obs,
-    ii_mis = ii_mis
+    left_out = !is.null(ii),
+    ii = ifelse(!is.null(ii), ii, 0)
   )
   
   param <- list(
@@ -77,7 +79,7 @@ iid_aghq <- function(sf, k = 3, ii_mis = NULL){
 #' @examples
 #' besag_aghq(mw)
 #' @export
-besag_aghq <- function(sf, k = 3, ii_mis = NULL){
+besag_aghq <- function(sf, k = 3, ii = NULL){
   nb <- sf_to_nb(sf)
   Q <- nb_to_precision(nb)
   Q <- as(Q, "dgTMatrix")
@@ -85,7 +87,8 @@ besag_aghq <- function(sf, k = 3, ii_mis = NULL){
   dat <- list(n = nrow(sf),
               y = sf$y,
               m = sf$n_obs,
-              ii_mis = ii_mis,
+              left_out = !is.null(ii),
+              ii = ifelse(!is.null(ii), ii, 0),
               Q = Q,
               Qrank = as.integer(Matrix::rankMatrix(Q)))
   
@@ -113,7 +116,7 @@ besag_aghq <- function(sf, k = 3, ii_mis = NULL){
 #' @examples
 #' bym2_aghq(mw)
 #' @export
-bym2_aghq <- function(sf, k = 3, ii_mis = NULL){
+bym2_aghq <- function(sf, k = 3, ii = NULL){
   nb <- sf_to_nb(sf)
   Q <- nb_to_precision(nb)
   Q <- as(Q, "dgTMatrix")
@@ -121,7 +124,8 @@ bym2_aghq <- function(sf, k = 3, ii_mis = NULL){
   dat <- list(n = nrow(sf),
               y = sf$y,
               m = sf$n_obs,
-              ii_mis = ii_mis,
+              left_out = !is.null(ii),
+              ii = ifelse(!is.null(ii), ii, 0),
               Q = Q)
   
   param <- list(beta_0 = 0,
@@ -153,7 +157,7 @@ bym2_aghq <- function(sf, k = 3, ii_mis = NULL){
 #' @examples
 #' fck_aghq(mw)
 #' @export
-fck_aghq <- function(sf, k = 3, kernel = matern, ii_mis = NULL, ...){
+fck_aghq <- function(sf, k = 3, kernel = matern, ii = NULL, ...){
   
   cov <- centroid_covariance(sf, kernel, ...)
   cov <- cov / riebler_gv(cov) # Standardise so tau prior is right
@@ -161,7 +165,8 @@ fck_aghq <- function(sf, k = 3, kernel = matern, ii_mis = NULL, ...){
   dat <- list(n = nrow(sf),
               y = sf$y,
               m = sf$n_obs,
-              ii_mis = ii_mis,
+              left_out = !is.null(ii),
+              ii = ifelse(!is.null(ii), ii, 0),
               Sigma = cov)
   
   param <- list(beta_0 = 0,
@@ -190,7 +195,7 @@ fck_aghq <- function(sf, k = 3, kernel = matern, ii_mis = NULL, ...){
 #' @examples
 #' fik_tmb(mw)
 #' @export
-fik_aghq <- function(sf, k = 3, L = 10, type = "hexagonal", kernel = matern, ii_mis = NULL, ...){
+fik_aghq <- function(sf, k = 3, L = 10, type = "hexagonal", kernel = matern, ii = NULL, ...){
   
   cov <- integrated_covariance(sf,  L = L, type = type, kernel, ...)
   cov <- cov / riebler_gv(cov) # Standardise so tau prior is right
@@ -198,7 +203,8 @@ fik_aghq <- function(sf, k = 3, L = 10, type = "hexagonal", kernel = matern, ii_
   dat <- list(n = nrow(sf),
               y = sf$y,
               m = sf$n_obs,
-              ii_mis = ii_mis,
+              left_out = !is.null(ii),
+              ii = ifelse(!is.null(ii), ii, 0),
               Sigma = cov)
   
   param <- list(beta_0 = 0,
@@ -227,7 +233,7 @@ fik_aghq <- function(sf, k = 3, L = 10, type = "hexagonal", kernel = matern, ii_
 #' @examples
 #' ck_aghq(mw)
 #' @export
-ck_aghq <- function(sf, k = 3, ii_mis = NULL){
+ck_aghq <- function(sf, k = 3, ii = NULL){
   D <- centroid_distance(sf)
   
   # Parameters of the length-scale prior
@@ -236,7 +242,8 @@ ck_aghq <- function(sf, k = 3, ii_mis = NULL){
   dat <- list(n = nrow(sf),
               y = sf$y,
               m = sf$n_obs,
-              ii_mis = ii_mis,
+              left_out = !is.null(ii),
+              ii = ifelse(!is.null(ii), ii, 0),
               a = param$a,
               b = param$b,
               D = D)
@@ -269,7 +276,7 @@ ck_aghq <- function(sf, k = 3, ii_mis = NULL){
 #' @examples
 #' ik_aghq(mw)
 #' @export
-ik_aghq <- function(sf, k = 3, L = 10, type = "hexagonal", ii_mis = NULL, ...){
+ik_aghq <- function(sf, k = 3, L = 10, type = "hexagonal", ii = NULL, ...){
   n <- nrow(sf)
   samples <- sf::st_sample(sf, type = type, exact = TRUE, size = rep(L, n))
   S <- sf::st_distance(samples, samples)
@@ -285,7 +292,8 @@ ik_aghq <- function(sf, k = 3, L = 10, type = "hexagonal", ii_mis = NULL, ...){
   dat <- list(n = nrow(sf),
               y = sf$y,
               m = sf$n_obs,
-              ii_mis = ii_mis,
+              left_out = !is.null(ii),
+              ii = ifelse(!is.null(ii), ii, 0),
               a = param$a,
               b = param$b,
               sample_lengths = sample_lengths,
