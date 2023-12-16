@@ -14,7 +14,7 @@ constant_tmb <- function(sf, its = 1000, ii = NULL){
     y = sf$y,
     m = sf$n_obs,
     left_out = !is.null(ii),
-    ii = ifelse(!is.null(ii), ii, 0)
+    ii = if(!is.null(ii)) ii else 0
   )
   
   param <- list(
@@ -53,7 +53,7 @@ iid_tmb <- function(sf, its = 1000, ii = NULL){
     y = sf$y,
     m = sf$n_obs,
     left_out = !is.null(ii),
-    ii = ifelse(!is.null(ii), ii, 0)
+    ii = if(!is.null(ii)) ii else 0
   )
   
   param <- list(
@@ -101,7 +101,7 @@ besag_tmb <- function(sf, its = 1000, ii = NULL){
               y = sf$y,
               m = sf$n_obs,
               left_out = !is.null(ii),
-              ii = ifelse(!is.null(ii), ii, 0),
+              ii = if(!is.null(ii)) ii else 0,
               Q = Q,
               Qrank = as.integer(Matrix::rankMatrix(Q)))
   
@@ -141,7 +141,7 @@ bym2_tmb <- function(sf, its = 1000, ii = NULL){
               y = sf$y,
               m = sf$n_obs,
               left_out = !is.null(ii),
-              ii = ifelse(!is.null(ii), ii, 0),
+              ii = if(!is.null(ii)) ii else 0,
               Q = Q)
   
   param <- list(beta_0 = 0,
@@ -187,7 +187,7 @@ fck_tmb <- function(sf, its = 1000, kernel = matern, ii = NULL, ...){
               y = sf$y,
               m = sf$n_obs,
               left_out = !is.null(ii),
-              ii = ifelse(!is.null(ii), ii, 0),
+              ii = if(!is.null(ii)) ii else 0,
               Sigma = cov)
   
   param <- list(beta_0 = 0,
@@ -230,7 +230,7 @@ fik_tmb <- function(sf, its = 1000, L = 10, type = "hexagonal", kernel = matern,
               y = sf$y,
               m = sf$n_obs,
               left_out = !is.null(ii),
-              ii = ifelse(!is.null(ii), ii, 0),
+              ii = if(!is.null(ii)) ii else 0,
               Sigma = cov)
   
   param <- list(beta_0 = 0,
@@ -274,7 +274,7 @@ ck_tmb <- function(sf, its = 1000, ii = NULL){
               y = sf$y,
               m = sf$n_obs,
               left_out = !is.null(ii),
-              ii = ifelse(!is.null(ii), ii, 0),
+              ii = if(!is.null(ii)) ii else 0,
               a = param$a,
               b = param$b,
               D = D)
@@ -329,7 +329,7 @@ ik_tmb <- function(sf, its = 1000, L = 10, type = "hexagonal", ii = NULL, ...){
               y = sf$y,
               m = sf$n_obs,
               left_out = !is.null(ii),
-              ii = ifelse(!is.null(ii), ii, 0),
+              ii = if(!is.null(ii)) ii else 0,
               a = param$a,
               b = param$b,
               sample_lengths = sample_lengths,

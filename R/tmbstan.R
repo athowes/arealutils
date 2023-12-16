@@ -17,7 +17,7 @@ constant_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, 
     y = sf$y,
     m = sf$n_obs,
     left_out = !is.null(ii),
-    ii = ifelse(!is.null(ii), ii, 0)
+    ii = if(!is.null(ii)) ii else 0
   )
   
   param <- list(
@@ -55,7 +55,7 @@ iid_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores
     y = sf$y,
     m = sf$n_obs,
     left_out = !is.null(ii),
-    ii = ifelse(!is.null(ii), ii, 0)
+    ii = if(!is.null(ii)) ii else 0
   )
   
   param <- list(
@@ -102,7 +102,7 @@ besag_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cor
               y = sf$y,
               m = sf$n_obs,
               left_out = !is.null(ii),
-              ii = ifelse(!is.null(ii), ii, 0),
+              ii = if(!is.null(ii)) ii else 0,
               Q = Q,
               Qrank = as.integer(Matrix::rankMatrix(Q)))
   
@@ -143,7 +143,7 @@ bym2_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, core
               y = sf$y,
               m = sf$n_obs,
               left_out = !is.null(ii),
-              ii = ifelse(!is.null(ii), ii, 0),
+              ii = if(!is.null(ii)) ii else 0,
               Q = Q)
   
   param <- list(beta_0 = 0,
@@ -190,7 +190,7 @@ fck_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores
               y = sf$y,
               m = sf$n_obs,
               left_out = !is.null(ii),
-              ii = ifelse(!is.null(ii), ii, 0),
+              ii = if(!is.null(ii)) ii else 0,
               Sigma = cov)
   
   param <- list(beta_0 = 0,
@@ -234,7 +234,7 @@ fik_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores
               y = sf$y,
               m = sf$n_obs,
               left_out = !is.null(ii),
-              ii = ifelse(!is.null(ii), ii, 0),
+              ii = if(!is.null(ii)) ii else 0,
               Sigma = cov)
   
   param <- list(beta_0 = 0,
@@ -279,7 +279,7 @@ ck_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores 
               y = sf$y,
               m = sf$n_obs,
               left_out = !is.null(ii),
-              ii = ifelse(!is.null(ii), ii, 0),
+              ii = if(!is.null(ii)) ii else 0,
               a = param$a,
               b = param$b,
               D = D)
@@ -335,7 +335,7 @@ ik_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores 
               y = sf$y,
               m = sf$n_obs,
               left_out = !is.null(ii),
-              ii = ifelse(!is.null(ii), ii, 0),
+              ii = if(!is.null(ii)) ii else 0,
               a = param$a,
               b = param$b,
               sample_lengths = sample_lengths,

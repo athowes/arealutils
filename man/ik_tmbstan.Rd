@@ -12,7 +12,7 @@ ik_tmbstan(
   cores = parallel::detectCores(),
   L = 10,
   type = "hexagonal",
-  ii_mis = NULL,
+  ii = NULL,
   ...
 )
 }
@@ -31,7 +31,7 @@ ik_tmbstan(
 
 \item{type}{The \code{type} argument of \code{sf::st_sample}, defaults to \code{"hexagonal"}}
 
-\item{ii_mis}{The (zero-indexed) indices of the observations held-out.}
+\item{ii}{The (zero-indexed) indices of the observations held-out.}
 
 \item{...}{Additional arguments to \code{kernel}.}
 }

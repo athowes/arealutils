@@ -4,14 +4,14 @@
 \alias{iid_aghq}
 \title{Fit IID Small Area Estimation model using \code{aghq}.}
 \usage{
-iid_aghq(sf, k = 3, ii_mis = NULL)
+iid_aghq(sf, k = 3, ii = NULL)
 }
 \arguments{
 \item{sf}{A simple features object with some geometry.}
 
 \item{k}{Number of quadrature points per hyperparameter dimension.}
 
-\item{ii_mis}{The (zero-indexed) indices of the observations held-out.}
+\item{ii}{The (zero-indexed) indices of the observations held-out.}
 }
 \description{
 Random effects are independent and identically distributed.

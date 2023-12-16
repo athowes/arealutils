@@ -4,7 +4,7 @@
 \alias{fck_aghq}
 \title{Fit Centroid MVN Small Area Estimation model using \code{aghq}.}
 \usage{
-fck_aghq(sf, k = 3, kernel = matern, ii_mis = NULL, ...)
+fck_aghq(sf, k = 3, kernel = matern, ii = NULL, ...)
 }
 \arguments{
 \item{sf}{A simple features object with some geometry.}
@@ -13,7 +13,7 @@ fck_aghq(sf, k = 3, kernel = matern, ii_mis = NULL, ...)
 
 \item{kernel}{A kernel function, defaults to \code{matern}.}
 
-\item{ii_mis}{The (zero-indexed) indices of the observations held-out.}
+\item{ii}{The (zero-indexed) indices of the observations held-out.}
 
 \item{...}{Additional arguments to \code{kernel}.}
 }

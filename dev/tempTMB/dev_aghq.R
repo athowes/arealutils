@@ -13,5 +13,44 @@ system.time({ck_aghq(mw)})
 system.time({ik_aghq(mw)})
 
 #' Test that the cross-validation enabling code works
-cv_test <- iid_aghq(mw, ii_mis = 0)
-summary(cv_test)
+ii <- 0
+cv_test <- iid_aghq(mw, ii = ii)
+
+cv_summary <- summary(cv_test)
+
+fig_one_left_out <- cv_summary$randomeffectsummary %>%
+  filter(variable == "u") %>%
+  tibble::rownames_to_column("index") %>%
+  mutate(
+    index = as.numeric(index),
+    left_out = case_when(
+      (index - 1) %in% ii ~ TRUE,
+      TRUE ~ FALSE
+    )
+  ) %>%
+  ggplot(aes(x = index, y = mean, ymax = `2.5%`, ymin = `97.5%`, col = left_out)) +
+    geom_pointrange() +
+    theme_minimal() +
+    labs(x = "Index", y = "Spatial effect", col = "Left out?")
+
+ii <- 1:5
+cv_test <- iid_aghq(mw, ii = ii)
+
+cv_summary <- summary(cv_test)
+
+fig_many_left_out <- cv_summary$randomeffectsummary %>%
+  filter(variable == "u") %>%
+  tibble::rownames_to_column("index") %>%
+  mutate(
+    index = as.numeric(index),
+    left_out = case_when(
+      (index - 1) %in% ii ~ TRUE,
+      TRUE ~ FALSE
+    )
+  ) %>%
+  ggplot(aes(x = index, y = mean, ymax = `2.5%`, ymin = `97.5%`, col = left_out)) +
+  geom_pointrange() +
+  theme_minimal() +
+  labs(x = "Index", y = "Spatial effect", col = "Left out?")
+
+fig_one_left_out / fig_many_left_out

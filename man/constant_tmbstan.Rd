@@ -10,7 +10,7 @@ constant_tmbstan(
   nsim_iter = 1000,
   chains = 4,
   cores = parallel::detectCores(),
-  ii_mis = NULL
+  ii = NULL
 )
 }
 \arguments{
@@ -24,7 +24,7 @@ constant_tmbstan(
 
 \item{cores}{Number of cores, passed to \code{rstan}, defaults to \code{parallel::detectCores()}.}
 
-\item{ii_mis}{The (zero-indexed) indices of the observations held-out.}
+\item{ii}{The (zero-indexed) indices of the observations held-out.}
 }
 \description{
 Simply fits a constant (the mean). This is useful as a benchmark for other models.

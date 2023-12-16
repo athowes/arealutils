@@ -13,6 +13,6 @@ system.time({ck_tmbstan(mw)})
 system.time({ik_tmbstan(mw)})
 
 #' Test that the cross-validation enabling code works
-cv_test <- iid_tmbstan(mw, ii_mis = 0)
+cv_test <- iid_tmbstan(mw, ii = 0)
 summary(cv_test)
 cv_test

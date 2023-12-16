@@ -4,14 +4,14 @@
 \alias{bym2_tmb}
 \title{Fit BYM2 Small Area Estimation model using \code{TMB}.}
 \usage{
-bym2_tmb(sf, its = 1000, ii_mis = NULL)
+bym2_tmb(sf, its = 1000, ii = NULL)
 }
 \arguments{
 \item{sf}{A simple features object with some geometry.}
 
 \item{its}{Number of iterations in outer loop optimisation, passed to \code{nlminb}.}
 
-\item{ii_mis}{The (zero-indexed) indices of the observations held-out.}
+\item{ii}{The (zero-indexed) indices of the observations held-out.}
 }
 \description{
 Fit BYM2 Small Area Estimation model using \code{TMB}.

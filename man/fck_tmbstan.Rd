@@ -11,7 +11,7 @@ fck_tmbstan(
   chains = 4,
   cores = parallel::detectCores(),
   kernel = matern,
-  ii_mis = NULL,
+  ii = NULL,
   ...
 )
 }
@@ -28,7 +28,7 @@ fck_tmbstan(
 
 \item{kernel}{A kernel function, defaults to \code{matern}.}
 
-\item{ii_mis}{The (zero-indexed) indices of the observations held-out.}
+\item{ii}{The (zero-indexed) indices of the observations held-out.}
 
 \item{...}{Additional arguments to \code{kernel}.}
 }
