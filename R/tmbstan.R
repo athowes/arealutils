@@ -329,7 +329,9 @@ ik_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores 
   # Data structure for unequal number of points in each area
   sample_index <- sf::st_intersects(sf, samples)
   sample_lengths <- lengths(sample_index)
-  start_index <- sapply(sample_index, function(x) x[1])
+
+  # Take one away due to zero indexing in C++
+  start_index <- sapply(sample_index, function(x) x[1] - 1)
   
   dat <- list(n = nrow(sf),
               y = sf$y,

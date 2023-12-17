@@ -23,11 +23,18 @@ ik_test <- ik_tmb(mw, its = 1000)
 
 sf <- mw
 L <- 10
-type <- "random" # Crashes for hexagonal but not for random: something strange about the covariance created by hexagonal?
+k <- 3
+
+# Crashes for hexagonal but not for random: something strange about the covariance created by hexagonal?
+# Something not working when the number of points per area is different? No it works with 10, ..., 10, 9 using samples <- head(samples, -1)
+# Likely found the bug was to do with zero indexing in C++: have fixed I believe
+
+type <- "random"
 ii <- NULL
 
 n <- nrow(sf)
 samples <- sf::st_sample(sf, type = type, exact = TRUE, size = rep(L, n))
+
 S <- sf::st_distance(samples, samples)
 
 # Parameters of the length-scale prior
@@ -36,7 +43,7 @@ param <- arealutils:::invgamma_prior(lb = 0.1, ub = max(as.vector(S)), plb = 0.0
 # Data structure for unequal number of points in each area
 sample_index <- sf::st_intersects(sf, samples)
 sample_lengths <- lengths(sample_index)
-start_index <- sapply(sample_index, function(x) x[1])
+start_index <- sapply(sample_index, function(x) x[1] - 1)
 
 dat <- list(n = nrow(sf),
             y = sf$y,
@@ -49,6 +56,8 @@ dat <- list(n = nrow(sf),
             total_samples = sum(sample_lengths),
             start_index = start_index,
             S = S)
+
+image(dat$S)
 
 ggplot(sf) +
   geom_sf(fill = "lightgrey") +
@@ -71,3 +80,4 @@ obj <- TMB::MakeADFun(
 )
 
 quad <- aghq::marginal_laplace_tmb(ff = obj, k = k, startingvalue = obj$par)
+summary(quad)
