@@ -14,7 +14,7 @@ constant_aghq <- function(sf, k = 3, ii = NULL){
     y = sf$y,
     m = sf$n_obs,
     left_out = !is.null(ii),
-    ii = if(!is.null(ii)) ii else 0
+    ii = ifelse(!is.null(ii), ii, 0)
   )
   
   param <- list(
@@ -47,7 +47,7 @@ iid_aghq <- function(sf, k = 3, ii = NULL){
     y = sf$y,
     m = sf$n_obs,
     left_out = !is.null(ii),
-    ii = if(!is.null(ii)) ii else 0
+    ii = ifelse(!is.null(ii), ii, 0)
   )
   
   param <- list(
@@ -88,7 +88,7 @@ besag_aghq <- function(sf, k = 3, ii = NULL){
               y = sf$y,
               m = sf$n_obs,
               left_out = !is.null(ii),
-              ii = if(!is.null(ii)) ii else 0,
+              ii = ifelse(!is.null(ii), ii, 0),
               Q = Q,
               Qrank = as.integer(Matrix::rankMatrix(Q)))
   
@@ -195,7 +195,7 @@ fck_aghq <- function(sf, k = 3, kernel = matern, ii = NULL, ...){
 #' @examples
 #' fik_tmb(mw)
 #' @export
-fik_aghq <- function(sf, k = 3, L = 10, type = "hexagonal", kernel = matern, ii = NULL, ...){
+fik_aghq <- function(sf, k = 3, L = 10, type = "random", kernel = matern, ii = NULL, ...){
   
   cov <- integrated_covariance(sf,  L = L, type = type, kernel, ...)
   cov <- cov / riebler_gv(cov) # Standardise so tau prior is right
@@ -276,7 +276,7 @@ ck_aghq <- function(sf, k = 3, ii = NULL){
 #' @examples
 #' ik_aghq(mw)
 #' @export
-ik_aghq <- function(sf, k = 3, L = 10, type = "hexagonal", ii = NULL, ...){
+ik_aghq <- function(sf, k = 3, L = 10, type = "random", ii = NULL, ...){
   n <- nrow(sf)
   samples <- sf::st_sample(sf, type = type, exact = TRUE, size = rep(L, n))
   S <- sf::st_distance(samples, samples)

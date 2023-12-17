@@ -4,15 +4,7 @@
 \alias{fik_aghq}
 \title{Fit Integrated MVN Small Area Estimation model using \code{aghq}.}
 \usage{
-fik_aghq(
-  sf,
-  k = 3,
-  L = 10,
-  type = "hexagonal",
-  kernel = matern,
-  ii = NULL,
-  ...
-)
+fik_aghq(sf, k = 3, L = 10, type = "random", kernel = matern, ii = NULL, ...)
 }
 \arguments{
 \item{sf}{A simple features object with some geometry.}

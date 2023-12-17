@@ -4,7 +4,7 @@
 \alias{ik_aghq}
 \title{Fit Bayesian Integrated MVN Small Area Estimation model using \code{aghq}.}
 \usage{
-ik_aghq(sf, k = 3, L = 10, type = "hexagonal", ii = NULL, ...)
+ik_aghq(sf, k = 3, L = 10, type = "random", ii = NULL, ...)
 }
 \arguments{
 \item{sf}{A simple features object with some geometry.}

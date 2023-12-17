@@ -4,7 +4,7 @@
 \alias{ik_tmb}
 \title{Fit Bayesian Integrated MVN Small Area Estimation model using \code{TMB}.}
 \usage{
-ik_tmb(sf, its = 1000, L = 10, type = "hexagonal", ii = NULL, ...)
+ik_tmb(sf, its = 1000, L = 10, type = "random", ii = NULL, ...)
 }
 \arguments{
 \item{sf}{A simple features object with some geometry.}

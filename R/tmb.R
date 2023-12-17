@@ -221,7 +221,7 @@ fck_tmb <- function(sf, its = 1000, kernel = matern, ii = NULL, ...){
 #' @examples
 #' fik_tmb(mw, its = 100)
 #' @export
-fik_tmb <- function(sf, its = 1000, L = 10, type = "hexagonal", kernel = matern, ii = NULL, ...){
+fik_tmb <- function(sf, its = 1000, L = 10, type = "random", kernel = matern, ii = NULL, ...){
   
   cov <- integrated_covariance(sf,  L = L, type = type, kernel, ...)
   cov <- cov / riebler_gv(cov) # Standardise so tau prior is right
@@ -312,7 +312,7 @@ ck_tmb <- function(sf, its = 1000, ii = NULL){
 #' @examples
 #' ik_tmb(mw, nsim_warm = 0, nsim_iter = 100, cores = 2)
 #' @export
-ik_tmb <- function(sf, its = 1000, L = 10, type = "hexagonal", ii = NULL, ...){
+ik_tmb <- function(sf, its = 1000, L = 10, type = "random", ii = NULL, ...){
   n <- nrow(sf)
   samples <- sf::st_sample(sf, type = type, exact = TRUE, size = rep(L, n))
   S <- sf::st_distance(samples, samples)

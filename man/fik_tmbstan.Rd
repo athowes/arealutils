@@ -11,7 +11,7 @@ fik_tmbstan(
   chains = 4,
   cores = parallel::detectCores(),
   L = 10,
-  type = "hexagonal",
+  type = "random",
   kernel = matern,
   ii = NULL,
   ...
