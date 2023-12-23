@@ -8,7 +8,7 @@ fik_tmb(
   sf,
   its = 1000,
   L = 10,
-  type = "random",
+  type = "hexagonal",
   kernel = matern,
   ii = NULL,
   ...

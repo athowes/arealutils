@@ -11,7 +11,7 @@ ik_tmbstan(
   chains = 4,
   cores = parallel::detectCores(),
   L = 10,
-  type = "random",
+  type = "hexagonal",
   ii = NULL,
   ...
 )

@@ -225,7 +225,7 @@ fck_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores
 #' @examples
 #' fik_tmbstan(mw, nsim_warm = 0, nsim_iter = 100, cores = 2)
 #' @export
-fik_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores(), L = 10, type = "random", kernel = matern, ii = NULL, ...){
+fik_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores(), L = 10, type = "hexagonal", kernel = matern, ii = NULL, ...){
   
   cov <- integrated_covariance(sf,  L = L, type = type, kernel, ...)
   cov <- cov / riebler_gv(cov) # Standardise so tau prior is right
@@ -318,7 +318,7 @@ ck_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores 
 #' @examples
 #' ik_tmbstan(mw, nsim_warm = 0, nsim_iter = 100, cores = 2)
 #' @export
-ik_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores(), L = 10, type = "random", ii = NULL, ...){
+ik_tmbstan <- function(sf, nsim_warm = 100, nsim_iter = 1000, chains = 4, cores = parallel::detectCores(), L = 10, type = "hexagonal", ii = NULL, ...){
   n <- nrow(sf)
   samples <- sf::st_sample(sf, type = type, exact = TRUE, size = rep(L, n))
   S <- sf::st_distance(samples, samples)

@@ -195,7 +195,7 @@ fck_aghq <- function(sf, k = 3, kernel = matern, ii = NULL, ...){
 #' @examples
 #' fik_tmb(mw)
 #' @export
-fik_aghq <- function(sf, k = 3, L = 10, type = "random", kernel = matern, ii = NULL, ...){
+fik_aghq <- function(sf, k = 3, L = 10, type = "hexagonal", kernel = matern, ii = NULL, ...){
   
   cov <- integrated_covariance(sf,  L = L, type = type, kernel, ...)
   cov <- cov / riebler_gv(cov) # Standardise so tau prior is right
@@ -276,7 +276,7 @@ ck_aghq <- function(sf, k = 3, ii = NULL){
 #' @examples
 #' ik_aghq(mw)
 #' @export
-ik_aghq <- function(sf, k = 3, L = 10, type = "random", ii = NULL, ...){
+ik_aghq <- function(sf, k = 3, L = 10, type = "hexagonal", ii = NULL, ...){
   n <- nrow(sf)
   samples <- sf::st_sample(sf, type = type, exact = TRUE, size = rep(L, n))
   S <- sf::st_distance(samples, samples)
