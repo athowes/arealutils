@@ -268,7 +268,15 @@ ck_tmb <- function(sf, its = 1000, ii = NULL){
   D <- centroid_distance(sf)
   
   # Parameters of the length-scale prior
-  param <- invgamma_prior(lb = 0.1, ub = max(as.vector(D)), plb = 0.01, pub = 0.01)
+  if(units(D)$numerator == "m") {
+    D <- units::set_units(D, "km")
+  }
+  
+  D_nonzero <- as.vector(D)[as.vector(D) > 0]
+  lb <- quantile(D_nonzero, 0.05)
+  ub <- quantile(D_nonzero, 0.95)
+  
+  param <- invgamma_prior(lb = lb, ub = ub, plb = 0.05, pub = 0.05)
   
   dat <- list(n = nrow(sf),
               y = sf$y,
@@ -318,7 +326,15 @@ ik_tmb <- function(sf, its = 1000, L = 10, type = "hexagonal", ii = NULL, ...){
   S <- sf::st_distance(samples, samples)
   
   # Parameters of the length-scale prior
-  param <- invgamma_prior(lb = 0.1, ub = max(as.vector(S)), plb = 0.01, pub = 0.01)
+  if(units(S)$numerator == "m") {
+    S <- units::set_units(S, "km")
+  }
+  
+  S_nonzero <- as.vector(S)[as.vector(S) > 0]
+  lb <- quantile(S_nonzero, 0.05)
+  ub <- quantile(S_nonzero, 0.95)
+  
+  param <- invgamma_prior(lb = lb, ub = ub, plb = 0.05, pub = 0.05)
   
   # Data structure for unequal number of points in each area
   sample_index <- sf::st_intersects(sf, samples)
