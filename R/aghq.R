@@ -237,8 +237,10 @@ ck_aghq <- function(sf, k = 3, ii = NULL){
   D <- centroid_distance(sf)
   
   # Parameters of the length-scale prior
-  if(units(D)$numerator == "m") {
-    D <- units::set_units(D, "km")
+  if(inherits(D, "units")) {
+    if(units(D)$numerator == "m") {
+      D <- units::set_units(D, "km")
+    }
   }
   
   D_nonzero <- as.vector(D)[as.vector(D) > 0]
@@ -290,8 +292,10 @@ ik_aghq <- function(sf, k = 3, L = 10, type = "hexagonal", ii = NULL, ...){
   S <- sf::st_distance(samples, samples)
   
   # Parameters of the length-scale prior
-  if(units(S)$numerator == "m") {
-    S <- units::set_units(S, "km")
+  if(inherits(S, "units")) {
+    if(units(S)$numerator == "m") {
+      S <- units::set_units(S, "km")
+    }
   }
   
   S_nonzero <- as.vector(S)[as.vector(S) > 0]
